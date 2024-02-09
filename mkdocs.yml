@@ -1,5 +1,5 @@
-site_name: Pan African Robotics Competition
-site_url: https://parc-robotics.github.io/documentation-2023/
+site_name: Pan African Robotics Competition 2024
+site_url: https://parc-robotics.github.io/documentation-2024/
 
 theme:
   language: en
@@ -90,7 +90,6 @@ nav:
       - Setting up your PC: getting-started-tutorials/setting-up-your-pc.md
       - Setting up your PC with Docker: getting-started-tutorials/setting-up-with-docker.md
       - Setting up your workspace: getting-started-tutorials/setting-up-your-workspace.md
-      - Getting started with MATLAB: getting-started-tutorials/introduction-to-matlab.md
       - Getting started with ROS: getting-started-tutorials/getting-started-with-ros.md
     - Competition Instructions:
       - "Phase 1: Simulation":
@@ -106,7 +105,6 @@ nav:
   - Rules and Regulations: rules-and-regulations.md
   - Resources and Support:
     - Virtual Meeting Recordings: resources-and-support/additional-resources.md
-    - Additional MATLAB Resources: resources-and-support/additional-matlab-resources.md
     - Additional Transform Resources: resources-and-support/additional-transform-resources.md
 
 plugins:
@@ -140,7 +138,6 @@ plugins:
           "How to register": "Comment s'inscrire"
           "Important dates": "Dates importantes"
           "Setting up your PC": "Configurer votre PC"
-          "Getting started with MATLAB": "Commencer avec MATLAB"
           "Setting up your workspace": "Configurer votre espace de travail"
           "Setting up your PC with Docker": "Configurer votre PC avec Docker"
           "Getting started with ROS": "Commencer avec ROS"

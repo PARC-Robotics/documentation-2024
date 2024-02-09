@@ -70,11 +70,6 @@ Mais ce guide vous aidera à déplacer le robot en publiant des commandes sur le
 
 Pour ce faire, créez un fichier, `robot_publisher.py` dans le dossier` scripts` dans votre package ROS (par exemple `test_publisher`) et le rendre exécutable.
 
-=== "MATLAB"
-    ```shell
-    mkdir test_publisher/scripts
-    touch test_publisher/scripts/robot_publisher.m
-    ```
 === "Python"
     ```shell
     mkdir test_publisher/scripts
@@ -88,72 +83,11 @@ Pour ce faire, créez un fichier, `robot_publisher.py` dans le dossier` scripts`
     touch test_publisher/src/robot_publisher.cpp
     ```
 
-!!! note "Note MATLAB"
-    Assurez-vous que vous disposez de la [Matlab Ros Toolbox](https://www.mathworks.com/help/ros/ug/install-the-matlab-bos-toolbox.html) installé et configuré. Assurez-vous également d'ajouter Test_Publisher / Scripts / sur le chemin MATLAB. Les instructions pour cela peuvent être trouvées dans [la documentation MATLAB](https://www.mathworks.com/help/matlab/ref/addpath.html).
-
 !!! note "Note Python"
     Vous devez modifier l'autorisation du fichier en exécutable pour pouvoir s'exécuter (comme fait dans la dernière commande illustrée ci-dessus).
 
 Ouvrez maintenant le fichier et copiez et collez le code suivant à l'intérieur:
 
-=== "MATLAB"
-    ```matlab
-    function robot_publisher()
-      % Script pour déplacer le robot
-      % Initialiser le nœud ROS
-      rosinit('localhost');
-      
-      % Créer un éditeur qui peut «parler» au robot et lui dire de bouger
-      pub = rospublisher('/cmd_vel', 'geometry_msgs/Twist');
-      
-      % Créer un message de torsion et ajouter des valeurs linéaires X et Z angulaires
-      move_cmd = rosmessage(pub);
-      
-      % Définir le taux de publication à 10 Hz
-      rate = rosrate(10);
-      
-      %%%%%%%%%% Se déplacer tout droit %%%%%%%%%%
-      disp("Se déplaçant tout droit");
-      move_cmd.Linear.X = 0.3;           % se déplacer en axe x à 0,3 m / s
-      move_cmd.Angular.Z = 0.0;
-      
-      % Pour les 3 secondes suivantes, publier les commandes cmd_vel MOVE
-      now = rostime('now');
-      while rostime('now') - now < rosduration(3)
-          send(pub, move_cmd);          % publier sur robot
-          waitfor(rate);
-      end
-      
-      %%%%%%%%%% Rotatif dans le sens intérieure %%%%%%%%%%
-      disp("Tournante");
-      move_cmd.Linear.X = 0.0;
-      move_cmd.Angular.Z = 0.2;         % tourner à 0,2 rad / sec
-      
-      % Pour les 3 prochaines secondes, publiez les commandes cmd_vel move
-      now = rostime('now');
-      while rostime('now') - now < rosduration(3)
-          send(pub, move_cmd);          % publier sur robot
-          waitfor(rate);
-      end
-      
-      %%%%%%%%%% Arrêt %%%%%%%%%%
-      disp("Arrêt");
-      move_cmd.Linear.X = 0.0;
-      move_cmd.Angular.Z = 0.0;         % Donner à la fois zéro arrêtera le robot
-      
-      % Pour les 1 secondes suivantes, publier les commandes cmd_vel MOVE
-      now = rostime('now');
-      while rostime('now') - now < rosduration(1)
-          send(pub, move_cmd);          % publier sur robot
-          waitfor(rate);
-      end
-      
-      disp("Sortie");
-      
-      % Nœud ROS d'arrêt
-      rosshutdown;
-    end
-    ```
 === "Python"
     ```python
     #!/usr/bin/env python
@@ -322,12 +256,6 @@ roslaunch parc_robot parc_task2.launch
 ```
 
 Et exécutez la commande suivante dans un autre terminal pour exécuter ce nouveau programme:
-=== "MATLAB"
-    Dans la fenêtre de commande MATLAB, exécutez la commande suivante:
-    ```matlab
-    rosinit
-    robot_publisher
-    ```
 
 === "Python"
     ```shell

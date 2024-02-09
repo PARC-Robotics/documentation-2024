@@ -49,18 +49,6 @@ roslaunch parc_robot task1.launch route:=route3
 
 * Pour obtenir l'emplacement cible GPS pour cette tâche, quelle que soit l'option d'itinéraire, vous pouvez utiliser un paramètre ROS. Voici un exemple de la façon d'obtenir l'emplacement du but en tant que paramètre ROS :
 
-=== "MATLAB"
-    ```matlab
-    % Initialize the ROS node
-    rosinit
-
-    % Get the goal parameter
-    goal = rosparam('get', 'goal_location');
-
-    % Print the goal location
-    disp(['goal location: ' num2str(goal.latitude) ' ' num2str(goal.longitude)])
-
-    ```
 === "Python"
     ```python
     #!/usr/bin/env python
@@ -99,18 +87,6 @@ roslaunch parc_robot task1.launch route:=route3
 
 De même, les coordonnées GPS des piquets sur les terres agricoles peuvent être obtenues en tant que paramètre si vous en avez besoin pour la localisation. Voici un exemple de la façon d'obtenir les coordonnées GPS de **peg 01** :
 
-=== "MATLAB"
-    ```matlab
-    % Initialize the ROS node
-    rosinit
-
-    % Get the peg parameter
-    peg01 = rosparam('get', 'peg_01');
-
-    % Print the goal location
-    disp(['peg01 coordinate: ' num2str(peg01.latitude) ' ' num2str(peg01.longitude)])
-
-    ```
 === "Python"
     ```python
     #!/usr/bin/env python
@@ -153,27 +129,6 @@ De même, les coordonnées GPS des piquets sur les terres agricoles peuvent êtr
 ### Conversion du GPS en cartésien
 Notre module, **gps2cartesian**, fournit un moyen pratique de convertir les positions GPS en coordonnées cartésiennes x-y. En utilisant la coordonnée GPS de la position de départ du robot comme origine de référence (0, 0) en coordonnées cartésiennes, la fonction **gps_to_cartesian()** calcule les coordonnées cartésiennes de toute position GPS souhaitée passée en paramètre à la fonction . Voici un exemple d'utilisation du module pour obtenir la coordonnée cartésienne du robot par rapport à l'origine de référence (ou emplacement de départ) :
 
-=== "MATLAB"
-    ```matlab
-    % Ce code nécessite que vous installiez la Geographiclib MATLAB Toolbox.
-    % Suivez les étapes ci-dessous pour installer geographiclib sur MATLAB
-    % 1. Cliquez sur l'icône Add-Ons sur MATLAB et recherchez geographiclib à l'aide de la barre de recherche.
-    % 2. Choisissez le module complémentaire geographiclib et cliquez sur Add (connectez-vous si vous y êtes invité).
-    % 3. Installer/Enregistrer
-
-    rosshutdown
-    rosinit
-
-    % Attendre un message sur le sujet "gps/fix"
-    gps_sub = rossubscriber('gps/fix', 'sensor_msgs/NavSatFix');
-    gps = receive(gps_sub);
-
-    % Convertir le GPS en coordonnées cartésiennes.
-    [x, y] = gps_to_cartesian(gps.Latitude, gps.Longitude);
-
-    disp(['La traduction de l'origine (0,0) à l'emplacement GPS fourni est ' num2str(x) ', ' num2str(y)])
-
-    ```
 === "Python"
     ```python
     #!/usr/bin/env python3

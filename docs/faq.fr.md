@@ -9,7 +9,7 @@ R: Le concours est ouvert aux étudiants des universités et des instituts techn
 R: Vous ne pouvez participer qu'en équipe. Chaque équipe doit avoir au moins 2 membres et un maximum de 5 membres.
 
 **Q: Dois-je avoir une expérience antérieure en robotique ou en programmation pour participer?**  
-R: Bien que l'expérience avec ROS ne soit pas essentielle pour commencer, une expérience de programmation est nécessaire. Vous devrez vous familiariser avec les langages de programmation C ++, MATLAB ou Python.
+R: Bien que l'expérience avec ROS ne soit pas essentielle pour commencer, une expérience de programmation est nécessaire. Vous devrez vous familiariser avec les langages de programmation C ++ ou Python.
 
 **Q: Y a-t-il des frais d'inscription pour le concours?**  
 R: Non, il n'y a pas de frais d'inscription pour le concours.

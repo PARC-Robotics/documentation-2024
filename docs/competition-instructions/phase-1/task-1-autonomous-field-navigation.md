@@ -49,19 +49,6 @@ roslaunch parc_robot task1.launch route:=route3
 
 * To obtain the GPS goal location for this task, regardless of the route option, you can use a ROS parameter. Here is an example of how to obtain the goal location as a ROS parameter:
 
-=== "MATLAB"
-    ```matlab
-    % Initialize the ROS node
-    rosinit
-
-    % Get the goal parameter
-    goal_longitude = rosparam('get', 'goal_longitude');
-    goal_latitude = rosparam('get', 'goal_latitude');
-
-    % Print the goal location
-    disp(['goal location: ' num2str(goal_latitude) ' ' num2str(goal_longitude)])
-
-    ```
 === "Python"
     ```python
     #!/usr/bin/env python3
@@ -102,18 +89,6 @@ roslaunch parc_robot task1.launch route:=route3
 
 Similarly, the GPS coordinates of the pegs on the farmland can be obtained as a parameter if you need it for localization. Here is an example of how to obtain the GPS coordinate of **peg 01**:
 
-=== "MATLAB"
-    ```matlab
-    % Initialize the ROS node
-    rosinit
-
-    % Get the peg parameter
-    peg01 = rosparam('get', 'peg_01');
-
-    % Print the goal location
-    disp(['peg01 coordinate: ' num2str(peg01.latitude) ' ' num2str(peg01.longitude)])
-
-    ```
 === "Python"
     ```python
     #!/usr/bin/env python3
@@ -159,27 +134,6 @@ Similarly, the GPS coordinates of the pegs on the farmland can be obtained as a 
 ### Converting GPS to Cartesian
 Our module, **gps2cartesian**, provides a convenient way to convert GPS locations to x-y Cartesian coordinates. By using the Gazebo world origin as the GPS reference origin (0, 0) in Cartesian coordinates, the **gps_to_cartesian()** function calculates the Cartesian coordinates of any desired GPS location passed as a parameter to the function. Here is an example of how to use the module to get the cartesian coordinate of the robot with respect to the reference origin:
 
-=== "MATLAB"
-    ```matlab
-    % This code requires that you install the geographiclib MATLAB Toolbox.
-    % Follow the steps below to install geographiclib on MATLAB
-    % 1. Click on the Add-Ons icon on MATLAB and search for geographiclib using the search bar.
-    % 2. Choose the geographiclib Add-On and click Add (Sign-in if you're prompted to).
-    % 3. Install/Save
-
-    rosshutdown
-    rosinit
-
-    % Wait for a message on the "gps/fix" topic
-    gps_sub = rossubscriber('gps/fix', 'sensor_msgs/NavSatFix');
-    gps = receive(gps_sub);
-
-    % Convert GPS to cartesian coordinate.
-    [x, y] = gps_to_cartesian(gps.Latitude, gps.Longitude);
-
-    disp(['The translation from the origin (0,0) to the gps location provided is ' num2str(x) ', ' num2str(y)])
-
-    ```
 === "Python"
     ```python
     #!/usr/bin/env python3

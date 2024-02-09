@@ -77,16 +77,11 @@ catkin_create_pkg test_publisher roscpp rospy std_msgs geometry_msgs
 
 [Setting up your workspace](../setting-up-your-workspace) guide has already shown how to control the robot with keyboard using `teleoperation`
 
-But this guide will help you to move the robot by publishing commands to `/cmd_vel` topic programmically using Python, MATLAB and C++. In the competition, you would have to choose one of these languages/platforms to interact with ROS.
+But this guide will help you to move the robot by publishing commands to `/cmd_vel` topic programmically using Python and C++. In the competition, you would have to choose one of these languages/platforms to interact with ROS.
 
 
 To do this, create a file, `robot_publisher.py` inside `scripts` folder in your ROS package (for example `test_publisher`) and make it executable.
 
-=== "MATLAB"
-    ```shell
-    mkdir test_publisher/scripts
-    touch test_publisher/scripts/robot_publisher.m
-    ```
 === "Python"
     ```shell
     mkdir test_publisher/scripts
@@ -100,72 +95,11 @@ To do this, create a file, `robot_publisher.py` inside `scripts` folder in your 
     touch test_publisher/src/robot_publisher.cpp
     ```
 
-!!! note "MATLAB Note"
-    Ensure you have the [MATLAB ROS Toolbox](https://www.mathworks.com/help/ros/ug/install-the-matlab-ros-toolbox.html) installed and configured. Also, ensure you add test_publisher/scripts/ to the MATLAB path. Instructions for this can be found in the [MATLAB documentation](https://www.mathworks.com/help/matlab/ref/addpath.html).
-
 !!! note "Python Note"
     You need to change the permission of the file to executable to be able to run (as done in the last command shown above).
 
 Now open the file and copy and paste the following code inside:
 
-=== "MATLAB"
-    ```matlab
-    function robot_publisher()
-      % Script to move Robot
-      % Initialize ROS node
-      rosinit('localhost');
-      
-      % Create a publisher which can "talk" to Robot and tell it to move
-      pub = rospublisher('/cmd_vel', 'geometry_msgs/Twist');
-      
-      % Create a Twist message and add linear x and angular z values
-      move_cmd = rosmessage(pub);
-      
-      % Set publish rate at 10 Hz
-      rate = rosrate(10);
-      
-      %%%%%%%%%% Move Straight %%%%%%%%%%
-      disp("Moving Straight");
-      move_cmd.Linear.X = 0.3;           % move in X axis at 0.3 m/s
-      move_cmd.Angular.Z = 0.0;
-      
-      % For the next 3 seconds publish cmd_vel move commands
-      now = rostime('now');
-      while rostime('now') - now < rosduration(3)
-          send(pub, move_cmd);          % publish to Robot
-          waitfor(rate);
-      end
-      
-      %%%%%%%%%% Rotating Counterclockwise %%%%%%%%%%
-      disp("Rotating");
-      move_cmd.Linear.X = 0.0;
-      move_cmd.Angular.Z = 0.2;         % rotate at 0.2 rad/sec
-      
-      % For the next 3 seconds publish cmd_vel move commands
-      now = rostime('now');
-      while rostime('now') - now < rosduration(3)
-          send(pub, move_cmd);          % publish to Robot
-          waitfor(rate);
-      end
-      
-      %%%%%%%%%% Stop %%%%%%%%%%
-      disp("Stopping");
-      move_cmd.Linear.X = 0.0;
-      move_cmd.Angular.Z = 0.0;         % Giving both zero will stop the robot
-      
-      % For the next 1 seconds publish cmd_vel move commands
-      now = rostime('now');
-      while rostime('now') - now < rosduration(1)
-          send(pub, move_cmd);          % publish to Robot
-          waitfor(rate);
-      end
-      
-      disp("Exit");
-      
-      % Shutdown ROS node
-      rosshutdown;
-    end
-    ```
 === "Python"
     ```python
     #!/usr/bin/env python
@@ -335,11 +269,6 @@ roslaunch parc_robot task1.launch
 ```
 
 And run the following command in another terminal to run this new program:
-=== "MATLAB"
-    From the MATLAB command window, run the following command:
-    ```matlab
-    robot_publisher
-    ```
 
 === "Python"
     ```shell

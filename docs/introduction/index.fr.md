@@ -15,7 +15,7 @@ La compétition se compose de deux phases: la **Phase de Simulation** et la **Ph
 
 
 ## Phase de Simulation
-Dans cette phase, les équipes travailleront avec le **PARC AgRobot** en simulation (en utilisant le simulateur de robot Gazebo) et utiliseront des outils de pointe (par exemple, ROS, Matlab, OpenCV, etc.) pour développer des solutions à Effectuez deux tâches fondamentales pour les robots agricoles:
+Dans cette phase, les équipes travailleront avec le **PARC AgRobot** en simulation (en utilisant le simulateur de robot Gazebo) et utiliseront des outils de pointe (par exemple, ROS, OpenCV, etc.) pour développer des solutions à Effectuez deux tâches fondamentales pour les robots agricoles:
 
 * Navigation sur le terrain autonome
 * Détection des mauvaises herbes
