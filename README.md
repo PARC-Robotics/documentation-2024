@@ -1,6 +1,6 @@
-# PARC 2023 Documentation
+# PARC 2024 Documentation
 
-This is the documentation repository for the PARC 2023 project. The documentation is written in Markdown and is built using [MkDocs](https://www.mkdocs.org/).
+This is the documentation repository for the PARC 2024 project. The documentation is written in Markdown and is built using [MkDocs](https://www.mkdocs.org/).
 
 ## Installation
 

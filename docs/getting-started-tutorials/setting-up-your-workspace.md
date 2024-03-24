@@ -1,6 +1,5 @@
 # How to set up your workspace
 
-
 In this tutorial, you will set up a directory on your ROS-enabled PC as your workspace for development and install the competition ROS packages. Please follow the instructions below carefully.
 
 !!! note
@@ -11,69 +10,77 @@ In this tutorial, you will set up a directory on your ROS-enabled PC as your wor
 
 ### Step 1: Setup ROS workspace
 
-<!-- First, we create a new directory in your home directory called `catkin_ws` with a subdirectory `src`. Then we initialize the directory as a catkin workspace. -->
-
 Open a new terminal on your PC, then copy and paste the following one line at a time:
 ```sh
-mkdir -p ~/catkin_ws/src
-cd ~/catkin_ws/src
-catkin_init_workspace
+mkdir -p ~/ros2_ws/src
+cd ~/ros2_ws/src
 ```
-
 
 ### Step 2: Clone the repository
 
 In the same terminal (or in a new one), copy and paste the following:
 ```sh
-cd ~/catkin_ws/src
-git clone --recurse-submodules https://github.com/PARC-Robotics/PARC-Engineers-League.git
+cd ~/ros2_ws/src
+git clone https://github.com/PARC-Robotics/PARC2024-Engineers-League.git .
 ```
-Or if you already have cloned the repo without submodules, run command `git submodule update --init --recursive` to update them.
 
 ### Step 3: Install dependencies
 
 In the same terminal (or in a new one), copy and paste the following:
 ```sh
-cd ~/catkin_ws
-sudo apt update
-rosdep install --from-paths ./src --ignore-src -y
+cd ~/ros2_ws
+sudo rosdep init
+rosdep update
+rosdep install --from-paths src --ignore-src --rosdistro humble -r -y
 ```
-
-!!! Warning
-    There is a known issue with one of our dependencies that might cause the `rosdep` command to fail. If you encounter this issue, manually install the dependency by running the following command:
-    ```sh
-    sudo apt install ros-noetic-teleop-twist-keyboard ros-noetic-hector-gazebo-plugins libasio-dev
-    ```
 
 ### Step 4: Compile packages
 ```sh
-cd ~/catkin_ws
-catkin_make
-source ~/catkin_ws/devel/setup.bash
+cd ~/ros2_ws
+colcon build
 ```
-
 
 ### Step 5: Set up ROS environment
-To set the environment every time you launch a new terminal, following this command:
+The following command needs to be run in every new terminal you open to get access to ROS 2 commands:
 
 ```sh
-echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
+source /opt/ros/humble/setup.bash
+```
+
+To avoid sourcing the ROS setup file every time you launch a new terminal, you can add the command to your shell startup script by executing these lines:
+
+```sh
+echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 ```
+
+The `ros2_ws` workspace is an **overlay** on top of the ROS installation, which is known as the **underlay**, and similarly to use the package executables or libraries
+in `ros2_ws`, the workspace will need to be sourced in every new terminal opened with this command:
+
+
+```sh
+source ~/ros2_ws/install/setup.bash
+```
+
+Likewise to avoid manually sourcing the workspace in each newly launched terminal, the command can also be added to shell startup script:
+
+```sh
+echo "source ~/ros2_ws/install/setup.bash" >> ~/.bashrc
+source ~/.bashrc
+```
+
 !!! note
-    As you develop, it is good to set the environment variables whenever you run a `catkin_make` command to compile changes to your packages. You can do that by:
+    As you develop, it is good to set the environment variables whenever you run a `colcon build` command to compile changes to your packages. You can do that by:
     ```sh
-    source ~/catkin_ws/devel/setup.bash
+    source ~/ros2_ws/install/setup.bash
     ```
-
-
 
 
 ### Step 6: Test installation
 
 If you completed the preceding tasks successfully, you should be able to run this ROS launch command and see the Gazebo simulator and RViz simulator open with the following display:
 ```sh
-roslaunch parc_robot task2.launch
+ros2 launch parc_robot_bringup task_1_launch.py
 ```
 ![Gazebo Simulator window](assets/gazebo.png)
 Gazebo Simulator window
@@ -96,12 +103,13 @@ The following guide will help you control the robot using keyboard. Once you hav
 
 ### Step 7: Controlling the robot using keyboard
 Run the following command in a new terminal
+
 ```sh
-source ~/catkin_ws/devel/setup.bash
-roslaunch parc_robot teleop.launch
+ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args --remap \
+/cmd_vel:=/robot_base_controller/cmd_vel_unstamped
 ```
 
-Now keeping the second terminal on top (teleop.launch) press `i` to move the robot forward, you can see the robot moving in "RViz" and "Gazebo" windows.
+Now keeping this second terminal active (or on top) press `i` to move the robot forward, you can see the robot moving in "RViz" and "Gazebo" windows.
 you can use the keys shown below to move the robot and `k` key to stop the movement.
 ```sh
 Moving around:
