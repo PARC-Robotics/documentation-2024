@@ -95,7 +95,7 @@ nav:
       - "Phase 1: Simulation":
         - Introduction: competition-instructions/phase-1/introduction.md
         - "Task 1: Autonomous Field Navigation": competition-instructions/phase-1/task-1-autonomous-field-navigation.md
-        - "Task 2: Weed Detection": competition-instructions/phase-1/task-2-weed-detection.md
+        - "Task 2: Crop Yield Estimation": competition-instructions/phase-1/task-2-crop-yield-estimation.md
         # - "Task 3: Seed Planting": competition-instructions/phase-1/task-3-seed-planting.md
         - How to Submit: competition-instructions/phase-1/how-to-submit.md
       - "Phase 2: Physical Robot": competition-instructions/phase-2/introduction.md
@@ -131,7 +131,7 @@ plugins:
           "Phase 1: Simulation": "Phase 1: Simulation"
           "Phase 2: Physical Robot": "Phase 2: Robot physique"
           "Task 1: Autonomous Field Navigation": "Tâche 1: Naviguer dans une ferme"
-          "Task 2: Weed Detection": "Tâche 2: Détection des mauvaises herbes"
+          "Task 2: Crop Yield Estimation": "Tâche 2: Détection des mauvaises herbes"
           "Task 3: Seed Planting": "Tâche 3: Plantation des graines"
           "Objectives and goals": "Objectifs et objectifs"
           "Prizes and rewards": "Prix et récompenses"
