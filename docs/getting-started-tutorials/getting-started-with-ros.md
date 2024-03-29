@@ -2,7 +2,7 @@
 
 The [Robot Operating System](https://www.ros.org/about-ros/) (ROS) is a flexible framework for writing robot software. It is a collection of tools, libraries, and conventions that aim to simplify the task of creating complex and robust robot behavior across a wide variety of robotic platforms.
 
-We have planned this competition around ROS because of its features as well as its widespread use in robotics research and industry. The version that will be used for this year's competition is **ROS 2 Humble**.
+We have planned this competition around ROS because of its features as well as its widespread use in robotics research and industry. The version that will be used for this year's competition is **ROS 2 Humble** and utilizing Python.
 
 ![ROS and APIs](assets/ros-apis.png)
 
@@ -29,7 +29,7 @@ Whether you are a beginner or a more advanced ROS 2 developer, we recommend you 
 After you complete the required tutorials listed above, you can start [setting up the workspace](../setting-up-your-workspace).
 
 Assuming the workspace at `~/ros2_ws/` as completed from the steps done in [setting up your workspace](../setting-up-your-workspace),
-This should be your folder structure till now.
+this should be your folder structure till now:
 
 ```
 ~/ros2_ws/
@@ -54,36 +54,60 @@ This should be your folder structure till now.
         └── .
 ```
 
-First step is to create your solution folder in `~/ros2_ws/src/`, we can call it `parc_solutions` for instance.
+<!-- First step is to create your solution folder in `~/ros2_ws/src/`, we can call it `parc_solutions` for instance. -->
+<!-- ```shell -->
+<!-- mkdir ~/ros2_ws/src/parc_solutions -->
+<!-- ``` -->
+<!-- Go inside the folder, -->
+<!-- ```shell -->
+<!-- cd ~/ros2_ws/src/parc_solutions -->
+<!-- ``` -->
+
+First navigate to the source folder in your workspace:
 ```shell
-mkdir ~/ros2_ws/src/parc_solutions
-```
-Go inside the folder,
-```shell
-cd ~/ros2_ws/src/parc_solutions
+cd ~/ros2_ws/src
 ```
 
-TODO: Mention Python. Create a python package, ie `ament_python`, instead
-
-And here you can create a new ROS package called `test_publisher` (for example) by running the command below,
+Then create a new ROS 2 Python package called `test_publisher` (for example) by running the command below,
 ```shell
 ros2 pkg create test_publisher --build-type ament_python \
 --dependencies rclpy std_msgs geometry_msgs
 ```
 
+Change directory into the newly created ROS 2 Python package 
+
+```shell
+cd test_publisher/
+```
+
+The package file structure is as follows,
+
+```
+├── package.xml
+├── resource
+│   └── test_publisher
+├── setup.cfg
+├── setup.py
+├── test
+│   ├── test_copyright.py
+│   ├── test_flake8.py
+│   └── test_pep257.py
+└── test_publisher
+    └── __init__.py
+```
+
 ### Moving the Robot Programmatically
 
-[Setting up your workspace](../setting-up-your-workspace) guide has already shown how to control the robot with keyboard using `teleoperation`
+[Setting up your workspace](../setting-up-your-workspace) guide has already shown how to control the robot with keyboard using `teleoperation`.
 
 But this guide will help you to move the robot by publishing commands to `/cmd_vel` topic programmically using Python and C++. In the competition, you would have to choose one of these languages/platforms to interact with ROS.
 
-
-To do this, create a file, `robot_publisher.py` inside `scripts` folder in your ROS package (for example `test_publisher`) and make it executable.
+To do this, create a file, `robot_publisher.py` inside `test_publisher` directory with the `__init__` file your ROS package (for example `test_publisher`) and make it executable.
 
 ```shell
-mkdir test_publisher/scripts
-touch test_publisher/scripts/robot_publisher.py
-chmod +x test_publisher/scripts/robot_publisher.py
+cd ~/ros2_ws/src/test_publisher/test_publisher
+touch robot_publisher.py
+chmod +x robot_publisher.py
 ```
 
 !!! note "Note"
@@ -135,8 +159,8 @@ class MoveRobot(Node):
         move_cmd.angular.z = 0.7  # rotate at 0.7 rad/s
 
         now = time.time()
-        # For the next 10 seconds publish cmd_vel move commands
-        while time.time() - now < 10:
+        # For the next 15 seconds publish cmd_vel move commands
+        while time.time() - now < 15:
             self.pub.publish(move_cmd)
 
         print("Stopping")
@@ -165,18 +189,19 @@ if __name__ == "__main__":
 ```
 
 
-This code will make the robot move straight for 4 seconds, stop for 5 seconcds, rotate counterclockwise for 10 seconds and then stop.
+This code will make the robot move straight for 4 seconds, stop for 5 seconcds, rotate counterclockwise for 15 seconds and then stop.
 
 ### Compile and Run
 
-USE PYTHON
-
 !!! Note 
-    For C++, we need to update the `CMakeLists.txt` file to include our new program. Add the following line to the `CMakeLists.txt` file:
+    For Python, we need to update the `CMakeLists.txt` file to include our new program. Add the following line to the `CMakeLists.txt` file:
 
-    ```cmake
-    add_executable(robot_publisher src/robot_publisher.cpp)
-    target_link_libraries(robot_publisher ${catkin_LIBRARIES})
+    ```python
+    entry_points={
+            'console_scripts': [
+                    'talker = py_pubsub.publisher_member_function:main',
+            ],
+    },
     ```
 
 Run the following command to compile the code:
