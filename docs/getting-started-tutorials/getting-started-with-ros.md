@@ -194,12 +194,12 @@ This code will make the robot move straight for 4 seconds, stop for 5 seconcds, 
 ### Compile and Run
 
 !!! Note 
-    For Python, we need to update the `CMakeLists.txt` file to include our new program. Add the following line to the `CMakeLists.txt` file:
+    For Python, we need to update the `setup.py` file in the ROS 2 package to include our new program. Add the following line in the`console_scripts` section of the `setup.py` file:
 
     ```python
     entry_points={
             'console_scripts': [
-                    'talker = py_pubsub.publisher_member_function:main',
+                    'move_robot = test_publisher.robot_publisher:main',
             ],
     },
     ```
