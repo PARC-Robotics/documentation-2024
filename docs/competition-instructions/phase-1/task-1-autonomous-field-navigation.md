@@ -26,13 +26,13 @@ You should see the display below in Gazebo and RViz respectively. To the right, 
 * We have prepared three pre-defined routes you can use as you develop your solution with each route having different goal location.
 
 === "Route 1"
-    ![task1_route1](../assets/Task1Route1.png)
+    ![task1_route1](../assets/Task1Route1.jpg)
 
 === "Route 2"
-    ![task1_route2](../assets/Task1Route2.png)
+    ![task1_route2](../assets/Task1Route2.jpg)
 
 === "Route 3"
-    ![task1_route3](../assets/Task1Route3.png)
+    ![task1_route3](../assets/Task1Route3.jpg)
 
 
 The default route is `route1`, but you can select the second and third route option (`route2` and `route3`) by passing the argument in the roslaunch command as follows:
@@ -49,175 +49,59 @@ roslaunch parc_robot task1.launch route:=route3
 
 * To obtain the GPS goal location for this task, regardless of the route option, you can use a ROS parameter. Here is an example of how to obtain the goal location as a ROS parameter:
 
-=== "Python"
-    ```python
-    #!/usr/bin/env python3
+```python
+#!/usr/bin/env python3
 
-    import rospy
+import rospy
 
-    rospy.init_node('goal_parameter')
+rospy.init_node('goal_parameter')
 
-    # Get goal parameter
-    lat, lon = rospy.get_param('goal_latitude'), rospy.get_param('goal_longitude')
+# Get goal parameter
+lat, lon = rospy.get_param('goal_latitude'), rospy.get_param('goal_longitude')
 
-    # Print goal location
-    rospy.loginfo("goal location: %f %f", lat, lon)
+# Print goal location
+rospy.loginfo("goal location: %f %f", lat, lon)
 
-    ```
-=== "C++"
-    ```cpp
-    // You have to configure the CMakeLists.txt for this C++ code to work.
-    // Visit http://wiki.ros.org/ROS/Tutorials/WritingPublisherSubscriber%28c%2B%2B%29 and check section 3. Building your nodes to learn how to set up CMakeLists.txt
-
-    #include <ros/ros.h>
-    #include "map"
-
-    int main(int argc, char** argv)
-    {
-      ros::init(argc, argv, "goal_parameter");
-
-      double latitude, longitude;
-      ros::param::get("goal_longitude", longitude);
-      ros::param::get("goal_latitude", latitude);
-
-      // Print goal location
-      ROS_INFO("goal location: %f %f", latitude, longitude);
-
-      return 0;
-    }
-    ```
-
+```
 Similarly, the GPS coordinates of the pegs on the farmland can be obtained as a parameter if you need it for localization. Here is an example of how to obtain the GPS coordinate of **peg 01**:
 
-=== "Python"
-    ```python
-    #!/usr/bin/env python3
+```python
+#!/usr/bin/env python3
 
-    import rospy
+import rospy
 
-    rospy.init_node('peg01_coordinate')
+rospy.init_node('peg01_coordinate')
 
-    # Get goal parameter
-    peg01 = rospy.get_param('peg_01')
-    lat, lon = peg01['latitude'], peg01['longitude']
+# Get goal parameter
+peg01 = rospy.get_param('peg_01')
+lat, lon = peg01['latitude'], peg01['longitude']
 
-    # Print goal location
-    rospy.loginfo("peg01 coordinate: %f %f", lat, lon)
+# Print goal location
+rospy.loginfo("peg01 coordinate: %f %f", lat, lon)
 
-    ```
-=== "C++"
-    ```cpp
-    // You have to configure the CMakeLists.txt for this C++ code to work.
-    // Visit http://wiki.ros.org/ROS/Tutorials/WritingPublisherSubscriber%28c%2B%2B%29 and check section 3. Building your nodes to learn how to set up CMakeLists.txt
-    
-    #include <ros/ros.h>
-    #include "map"
-
-    int main(int argc, char **argv)
-    {
-      ros::init(argc, argv, "peg01_coordinate");
-
-      // Get goal parameter
-      std::map<std::string, double> peg01;
-      ros::param::get("peg_01", peg01);
-
-      // Print goal location
-      ROS_INFO("peg01 coordinate: %f %f", peg01["latitude"], peg01["longitude"]);
-
-      return 0;
-    }
-    ```
-
+```
 !!! warning
     Please **DO NOT** use the cartesian coordinates of the goal location and pegs provided by Gazebo or the world file in any way. You will be penalized if you do.
 
 ### Converting GPS to Cartesian
 Our module, **gps2cartesian**, provides a convenient way to convert GPS locations to x-y Cartesian coordinates. By using the Gazebo world origin as the GPS reference origin (0, 0) in Cartesian coordinates, the **gps_to_cartesian()** function calculates the Cartesian coordinates of any desired GPS location passed as a parameter to the function. Here is an example of how to use the module to get the cartesian coordinate of the robot with respect to the reference origin:
 
-=== "Python"
-    ```python
-    #!/usr/bin/env python3
-    ## Install the geographiclib 2.0 module for this code to work.
-    ## To install geographiclib 2.0, copy the line below to your terminal.
-    ## pip install geographiclib
-    ## Any of the PARC competition task must be running for this code to work.
+```python
+#!/usr/bin/env python3
+## Install the geographiclib 2.0 module for this code to work.
+## To install geographiclib 2.0, copy the line below to your terminal.
+## pip install geographiclib
+## Any of the PARC competition task must be running for this code to work.
 
-    import rospy
-    from sensor_msgs.msg import NavSatFix
-    from parc_robot.gps2cartesian import gps_to_cartesian
+import rospy
+from sensor_msgs.msg import NavSatFix
+from parc_robot.gps2cartesian import gps_to_cartesian
 
-    rospy.init_node('gps_goal')
-    gps = rospy.wait_for_message('gps/fix', NavSatFix) # subscribe to the gps topic once.
-    x, y = gps_to_cartesian(gps.latitude, gps.longitude) # get the cartesian coordinates from the GPS coordinates.
-    rospy.loginfo("The translation from the origin (0,0) to the gps location provided is {:.3f}, {:.3f} m.".format(x, y))
-
-    ```
-=== "C++"
-    ```cpp
-    /*
-      This code uses the geographiclib library. To install geographiclib for C++.
-      Follow the instructions below:
-      1. Download geographiclib via this link -> https://sourceforge.net/projects/geographiclib/files/distrib-C++/GeographicLib-2.2.zip
-         The steps below should be done on your terminal.
-      2. Go to where you downloaded the file -> cd ~/Downloads
-      3. Unzip the file -> unzip -q GeographicLib-2.2.zip
-      4. Enter the directory -> cd GeographicLib-2.2
-      5. Create a separate build directory -> mkdir BUILD
-      6. Enter the build directory -> cd BUILD
-      7. Run cmake (add the two dots) -> cmake ..
-      8. Run make -> make
-
-      /////////////////////////////////////////
-      Uncomment every line after the first find_package() in the CMakeLists.txt of the parc_robot package.
-      /////////////////////////////////////////
-      
-      Configure CMakeLists.txt for your own ros package (not parc_robot package) this way:
-      
-      cmake_minimum_required(VERSION 3.0.2)
-      project(my_package_name)
-      
-      find_package(catkin REQUIRED COMPONENTS
-        roscpp
-        rospy
-        std_msgs
-        sensor_msgs
-        parc_robot # Add parc_robot package to packages ROS should find
-      )
-      
-      catkin_package()
-      
-      include_directories(
-        ${catkin_INCLUDE_DIRS}
-        ${parc_robot_INCLUDE_DIRS}
-      )
-      
-      ## Change my_node to whatever your node name is
-      add_executable(my_node src/my_node.cpp)
-      target_link_libraries(my_node 
-        ${catkin_LIBRARIES}
-        ${parc_robot_LIBRARIES}
-      )
-
-    */
-
-    #include "ros/ros.h"
-    #include "sensor_msgs/NavSatFix.h"
-    #include "parc_robot/gps2cartesian.h" // Add the gps2cartesian api provided by PARC
-
-    int main(int argc, char **argv)
-    {
-      ros::init(argc, argv, "gps_to_cartesian");
-      ros::NodeHandle nh;
-      sensor_msgs::NavSatFixConstPtr msg = ros::topic::waitForMessage<sensor_msgs::NavSatFix>("gps/fix");
-      std::cout << msg->latitude << std::endl;
-      std::cout << msg->longitude << std::endl;
-      auto position = gps_to_cartesian(msg->latitude, msg->longitude);
-      ROS_INFO("The translation from the origin (0,0) to the gps location provided is: %f, %f", position.x, position.y);
-
-      return 0;
-    }
-    
-    ```
+rospy.init_node('gps_goal')
+gps = rospy.wait_for_message('gps/fix', NavSatFix) # subscribe to the gps topic once.
+x, y = gps_to_cartesian(gps.latitude, gps.longitude) # get the cartesian coordinates from the GPS coordinates.
+rospy.loginfo("The translation from the origin (0,0) to the gps location provided is {:.3f}, {:.3f} m.".format(x, y))
+```
 
 ### Preparing your Solution
 * Your solution should be prepared as ROS packages to be saved in your solution folder. Create a launch file in your ROS package which runs ALL the code you need in your solution. Name this launch file: `task1_solution.launch`.
