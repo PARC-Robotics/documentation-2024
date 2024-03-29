@@ -11,7 +11,7 @@ Agricultural robots must be able to navigate through crops and farmland, which i
 In a new terminal, run the following launch file to bring up the robot in Gazebo and RViz:
 
 ```sh
-roslaunch parc_robot task1.launch
+ros2 launch parc_robot_bringup task1_launch.py
 ```
 
 You should see the display below in Gazebo and RViz respectively. To the right, there's the robot and to the left is the orange-red sphere which represents the goal location.
@@ -39,10 +39,10 @@ The default route is `route1`, but you can select the second and third route opt
 
 ```sh
 ## route2
-roslaunch parc_robot task1.launch route:=route2
+ros2 launch parc_robot_bringup task1_launch.py route:=route2
 
 ## route3
-roslaunch parc_robot task1.launch route:=route3
+ros2 launch parc_robot_bringup task1_launch.py route:=route3
 ```
 
 * We recommend you play around with at least these three routes to ensure your solution is robust to different start locations.
@@ -111,19 +111,19 @@ rospy.loginfo("The translation from the origin (0,0) to the gps location provide
 In one terminal:
 
 ```sh
-roslaunch parc_robot task1.launch
+ros2 launch parc_robot_bringup task1_launch.py
 ```
 
 Or 
 
 ```sh
-roslaunch parc_robot task1.launch route:=route2
+ros2 launch parc_robot_bringup task1_launch.py route:=route2
 ```
 
 Or
 
 ```sh
-roslaunch parc_robot task1.launch route:=route3
+ros2 launch parc_robot_bringup task1_launch.py route:=route3
 ```
 
 !!! note "Note"
@@ -132,7 +132,7 @@ roslaunch parc_robot task1.launch route:=route3
 In another terminal:
 
 ```sh
-roslaunch <your-package-name> task1_solution.launch
+ros2 launch <your-package-name> task1_solution_launch.py
 ```
 
 ## Task Rules
