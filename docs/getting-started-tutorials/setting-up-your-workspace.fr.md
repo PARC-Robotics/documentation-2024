@@ -1,82 +1,93 @@
 # Comment configurer votre espace de travail
 
-
-Dans ce didacticiel, vous allez configurer un répertoire sur votre PC compatible ROS comme espace de travail pour le développement et installer les packages ROS concurrents. Veuillez suivre attentivement les instructions ci-dessous.
-
-!!! note
-     Ceci peut être effectué UNIQUEMENT après avoir configuré votre PC (en suivant le tutoriel ici : [Configuration de votre PC](../getting-started-tutorials/setting-up-your-pc.md)).
+Dans ce didacticiel, vous allez configurer un répertoire sur votre PC compatible ROS 2 comme espace de travail pour le développement et installer les packages ROS 2 de la compétition. Veuillez suivre attentivement les instructions ci-dessous.
 
 !!! note
-     Si vous utilisez un conteneur Docker, vous pouvez ignorer ce didacticiel et suivre les instructions de [Configuration de votre PC à l'aide de Docker](../getting-started-tutorials/setting-up-with-docker.md) à la place.
+     Ceci peut être effectué UNIQUEMENT après avoir configuré votre PC (en suivant le tutoriel ici : [Configuration de votre PC](../getting-started-tutorials/setting-up-your-pc.fr.md)).
 
-### Étape 1 : Configurer l'espace de travail ROS
+<!-- uncommment once we have docker setup -->
+<!-- !!! note -->
+<!--      Si vous utilisez un conteneur Docker, vous pouvez ignorer ce didacticiel et suivre les instructions de [Configuration de votre PC à l'aide de Docker](../getting-started-tutorials/setting-up-with-docker.md) à la place. -->
+
+### Étape 1: Configurer l'espace de travail ROS 2
 
 <!-- Premièrement, nous créons un nouveau répertoire dans votre répertoire personnel appelé `catkin_ws` avec un sous-répertoire `src`. Ensuite, nous initialisons le répertoire en tant qu'espace de travail catkin. -->
 
-Ouvrez un nouveau terminal sur votre PC, puis copiez et collez la ligne suivante à la fois :
+Ouvrez un nouveau terminal sur votre PC, puis copiez et collez les lignes suivantes une par une:
 ```sh
-mkdir -p ~/catkin_ws/src
-cd ~/catkin_ws/src
-catkin_init_workspace
+mkdir -p ~/ros2_ws/src
+cd ~/ros2_ws/src
 ```
 
+### Étape 2: Cloner le dépôt
 
-### Étape 2 : Cloner le dépôt
-
-Dans le même terminal (ou dans un nouveau), copiez et collez ce qui suit :
+Dans le même terminal (ou dans un nouveau), copiez et collez ce qui suit:
 ```sh
-cd ~/catkin_ws/src
-git clone --recurse-submodules https://github.com/PARC-Robotics/PARC-Engineers-League.git
-```
-Ou si vous avez déjà cloné le référentiel sans sous-modules, exécutez la commande `git submodule update --init --recursive` pour les mettre à jour.
-
-### Étape 3 : Installer les dépendances
-
-Dans le même terminal (ou dans un nouveau), copiez et collez ce qui suit :
-```sh
-cd ~/catkin_ws
-mise à jour sudo apt
-rosdep install --from-paths ./src --ignore-src -y
+cd ~/ros2_ws/src
+git clone https://github.com/PARC-Robotics/PARC2024-Engineers-League.git .
 ```
 
-!!! Avertissement
-     Il existe un problème connu avec l'une de nos dépendances qui peut entraîner l'échec de la commande `rosdep`. Si vous rencontrez ce problème, installez manuellement la dépendance en exécutant la commande suivante :
-     ```sh
-     sudo apt install ros-noetic-teleop-twist-keyboard ros-noetic-hector-gazebo-plugins libasio-dev
-     ```
+### Étape 3: Installer les dépendances
 
-### Étape 4 : Compiler les packages
+Dans le même terminal (ou dans un nouveau), copiez et collez ce qui suit:
 ```sh
-cd ~/catkin_ws
-faire des chatons
-source ~/catkin_ws/devel/setup.bash
+cd ~/ros2_ws
+sudo rosdep init
+rosdep update
+rosdep install --from-paths src --ignore-src --rosdistro humble -r -y
 ```
 
+### Étape 4: Compiler les packages
 
-### Étape 5 : Configurer l'environnement ROS
-Pour définir l'environnement à chaque fois que vous lancez un nouveau terminal, suivez cette commande :
+L'étape suivante consiste à compiler les packages installés en utilisant `colcon build`:
+```sh
+cd ~/ros2_ws
+colcon build
+```
+
+### Étape 5: Configurer l'environnement ROS 2
+
+La commande suivante doit être exécutée dans chaque nouveau terminal que vous ouvrez pour accéder aux commandes ROS 2:
 
 ```sh
-echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
+source /opt/ros/humble/setup.bash
+```
+
+Pour éviter de rechercher le fichier d'installation de ROS à chaque fois que vous lancez un nouveau terminal, vous pouvez ajouter la commande à votre script de démarrage shell en exécutant ces lignes:
+
+```sh
+echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 ```
-!!! note
-     Au fur et à mesure que vous développez, il est bon de définir les variables d'environnement chaque fois que vous exécutez une commande `catkin_make` pour compiler les modifications apportées à vos packages. Vous pouvez le faire en :
-     ```sh
-     source ~/catkin_ws/devel/setup.bash
-     ```
 
+L'espace de travail `ros2_ws` est une **superposition** au-dessus de l'installation de ROS, connue sous le nom de **sous-couche**, et de la même manière, pour utiliser les exécutables ou les bibliothèques du package dans `ros2_ws`, l'espace de travail devra provenir de chaque nouveau terminal ouvert avec cette commande:
 
-
-
-### Étape 6 : testez l'installation
-
-Si vous avez terminé les tâches précédentes avec succès, vous devriez pouvoir exécuter cette commande de lancement ROS et voir le simulateur Gazebo et le simulateur RViz s'ouvrir avec l'affichage suivant :
 ```sh
-roslaunch parc_robot task2.launch
+source ~/ros2_ws/install/setup.bash
+```
+
+De même, pour éviter de rechercher manuellement l'espace de travail dans chaque terminal nouvellement lancé, la commande peut également être ajoutée au script de démarrage du shell:
+
+```sh
+echo "source ~/ros2_ws/install/setup.bash" >> ~/.bashrc
+source ~/.bashrc
+```
+
+!!! note
+    Au fur et à mesure que vous développez, il est bon de définir les variables d'environnement chaque fois que vous exécutez une commande `colcon build` pour compiler les modifications apportées à vos packages. Vous pouvez le faire en:
+    ```sh
+    source ~/ros2_ws/install/setup.bash
+    ```
+
+### Étape 6: testez l'installation
+
+Si vous avez terminé les tâches précédentes avec succès, vous devriez pouvoir exécuter cette commande de lancement de ROS 2 et voir le simulateur Gazebo Classic et le simulateur RViz s'ouvrir avec l'affichage suivant:
+
+```sh
+ros2 launch parc_robot_bringup task_1_launch.py
 ```
 ![Fenêtre Gazebo Simulator](assets/gazebo.png)
-Fenêtre du simulateur de belvédère
+Gazebo Classic fenêtre du simulateur
 
 
 ![Fenêtre RViz](assets/rviz.png)
@@ -94,15 +105,22 @@ Vous verrez un écran comme celui-ci :
 Vous devez `publier`/écrire dans le `sujet` `/cmd_vel` pour déplacer le robot.
 Le guide suivant vous aidera à contrôler le robot à l'aide du clavier. Une fois que vous avez testé cela, vous pouvez suivre le guide [understanding-ros](../getting-started-with-ros) pour écrire un programme python pour contrôler le robot.
 
-### Étape 7 : Contrôler le robot à l'aide du clavier
-Exécutez la commande suivante dans un nouveau terminal
+### Étape 7: Contrôler le robot à l'aide du clavier
+
+Tout d'abord, le package `teleop_twist_keyboard` ROS 2 est installé qui nous permettra d'utiliser le clavier pour contrôler le robot dans un terminal comme suit,
+
 ```sh
-source ~/catkin_ws/devel/setup.bash
-roslaunch parc_robot teleop.launch
+sudo apt install ros-humble-teleop-twist-keyboard
+```
+Exécutez ensuite la commande suivante dans un nouveau terminal,
+
+```sh
+ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args --remap \
+/cmd_vel:=/robot_base_controller/cmd_vel_unstamped
 ```
 
-Maintenant, en gardant le deuxième terminal en haut (teleop.launch), appuyez sur `i` pour faire avancer le robot, vous pouvez voir le robot se déplacer dans les fenêtres "RViz" et "Gazebo".
-vous pouvez utiliser les touches ci-dessous pour déplacer le robot et la touche "k" pour arrêter le mouvement.
+Maintenant, en gardant ce deuxième terminal actif (ou en haut), appuyez sur, `i` pour faire avancer le robot, vous pouvez voir le robot bouger dans les fenêtres "RViz" et "Gazebo". 
+Vous pouvez utiliser les touches ci-dessous pour déplacer le robot et la touche `k` pour arrêter le mouvement.
 
 ```sh
 Se déplacer :

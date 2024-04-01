@@ -2,42 +2,44 @@
 
 Le [Robot Operating System](https://www.ros.org/about-ros/) (ROS) est un cadre flexible pour l'écriture de logiciels de robot. Il s'agit d'un ensemble d'outils, de bibliothèques et de conventions qui visent à simplifier la tâche de création d'un comportement de robot complexe et robuste sur une grande variété de plates-formes robotiques.
 
-Nous avons planifié ce concours autour de ROS en raison de ses fonctionnalités ainsi que de son utilisation répandue dans la recherche et l'industrie en robotique.
+Nous avons planifié ce concours autour du ROS en raison de ses fonctionnalités ainsi que de son utilisation généralisée dans la recherche et l'industrie en robotique. La version qui sera utilisée pour le concours de cette année est ROS 2 Humble et utilise Python.
 
 ![ROS et API](assets/ros-apis.png)
 
-Pour démarrer avec ROS (si vous êtes débutant), nous vous recommandons de suivre les tutoriels "Niveau Débutant" dans les [Tutoriels ROS] officiels (http://wiki.ros.org/ROS/Tutorials). Assurez-vous de remplir au moins les éléments suivants :
+## Rampe de démarrage ROS 2!
 
+Que vous soyez débutant ou développeur ROS 2 plus avancé, nous vous recommandons de prendre le temps de consulter les didacticiels ROS 2 Humble suivants, en particulier la section débutant.
 
-## ROS OnRamp !
-
-Que vous soyez un débutant ou un développeur ROS plus avancé, nous vous recommandons de prendre le temps de consulter les didacticiels ROS suivants.
-
-* [Tutoriels officiels ROS](http://wiki.ros.org/ROS/Tutorials){target=_blank} - Assurez-vous de terminer au moins les chapitres 5, 6 et 12.
-* [Liste de lecture Youtube du tutoriel ROS](https://www.youtube.com/playlist?list=PLLSegLrePWgIbIrA4iehUQ-impvIXdd9Q){target=_blank} (**Fortement recommandé pour les débutants**) - Sinon, nous vous recommandons de couvrir au moins parties 1-9. Le contenu est excellent !
+* [Tutoriels officiels ROS 2](https://docs.ros.org/en/humble/Tutorials.html){target=_blank}
+* [Liste de lecture Youtube du tutoriel ROS 2](https://www.youtube.com/playlist?list=PLLSegLrePWgJudpPUof4-nVFHGkB62Izy){target=_blank} (**Fortement recommandé aux débutants**, le contenu est excellent!) 
 
 !!! note
-     Votre expérience d'apprentissage globale dans ce concours dépend ** fortement ** de la quantité de concepts fondamentaux de ROS que vous pouvez saisir dès le début. Par conséquent, nous **recommandons fortement** que vous preniez le temps d'utiliser ces ressources.
+     Votre expérience d'apprentissage globale dans ce concours dépend ** fortement ** de la quantité de concepts fondamentaux de ROS 2 que vous pouvez comprendre dès le début. Par conséquent, nous vous ** recommandons fortement ** de consacrer le temps à utiliser ces ressources.
 
 
-## Écrire votre premier package ROS
+Ceci peut être effectué UNIQUEMENT après avoir configuré votre PC (en suivant le tutoriel ici : [Configuration de votre PC](../getting-started-tutorials/setting-up-your-pc.fr.md)).
 
-Une fois que vous avez terminé les didacticiels requis répertoriés ci-dessus, vous pouvez commencer à [configurer l'espace de travail](../setting-up-your-workspace).
+## Écrire votre premier package ROS 2
 
-En supposant que l'espace de travail à `~/catkin_ws/` est terminé à partir des étapes effectuées dans [configuration de votre espace de travail](../setting-up-your-workspace),
-Cela devrait être votre structure de dossiers jusqu'à présent.
+Après avoir terminé les didacticiels requis répertoriés ci-dessus, vous pouvez commencer à [configurer l'espace de travail](../getting-started-tutorials/setting-up-your-workspace.fr.md).
+
+En supposant que l'espace de travail à `~/ros2_ws/` est terminé à partir des étapes effectuées dans [configuration de votre espace de travail](../getting-started-tutorials/setting-up-your-workspace.fr.md),
+ceci devrait être votre structure de dossiers:
 
 ```
-~/catkin_ws/
+~/ros2_ws/
 ├── build/
 │   ├── .
 │   └── .
-├── devel/
+├── install/
+│   ├── .
+│   └── .
+├── log/
 │   ├── .
 │   └── .
 └── src/
     ├── CMakeLists.txt
-    └── parc-engineers-league/
+    └── PARC2024-Engineers-League/
         ├── parc_robot/
         │   ├── .
         │   ├── .
@@ -47,234 +49,170 @@ Cela devrait être votre structure de dossiers jusqu'à présent.
         └── .
 ```
 
-La première étape consiste à créer votre dossier de solution dans `~/catkin_ws/src/`, nous pouvons l'appeler `parc_solutions` par exemple.
-```shell
-mkdir ~/catkin_ws/src/parc_solutions
+Accédez d’abord au dossier source dans votre espace de travail,
+
+```sh
+cd ~/ros2_ws/src
 ```
-Entrez dans le dossier,
+Créez ensuite un nouveau package Python ROS 2 appelé `test_publisher` (par exemple) en exécutant la commande ci-dessous,
+
 ```shell
-cd ~/catkin_ws/src/parc_solutions
+ros2 pkg create test_publisher --build-type ament_python \
+--dependencies rclpy std_msgs geometry_msgs
 ```
 
-Et ici, vous pouvez créer un nouveau package ROS appelé `test_publisher` (par exemple) en exécutant la commande ci-dessous,
+Changez de répertoire dans le package ROS 2 Python nouvellement créé,
+
 ```shell
-catkin_create_pkg test_publisher roscpp rospy std_msgs geometry_msgs
+cd test_publisher/
+```
+La structure des fichiers du package `test_publisher` est la suivante,
+
+```
+├── package.xml
+├── resource
+│   └── test_publisher
+├── setup.cfg
+├── setup.py
+├── test
+│   ├── test_copyright.py
+│   ├── test_flake8.py
+│   └── test_pep257.py
+└── test_publisher
+    └── __init__.py
 ```
 
 ## Déplacer le robot programmatique
 
-[Configuration de votre espace de travail](../setting-up-your-workspace) a déjà montré comment contrôler le robot avec le clavier à l'aide de `Teleoperation`
+[Configuration de votre espace de travail](../getting-started-tutorials/setting-up-your-workspace.fr.md) a déjà montré comment contrôler le robot avec le clavier à l'aide de `teleop_twist_keyboard`.
 
-Mais ce guide vous aidera à déplacer le robot en publiant des commandes sur le sujet `/ cmd_vel` par programme à l'aide d'un script python.
+Ce guide vous aidera à déplacer le robot en publiant des commandes dans le sujet `/robot_base_controller/cmd_vel_unstamped` par programmation en utilisant Python, qui est le langage qui sera utilisé dans le concours pour interagir avec ROS 2.
 
+Pour ce faire, créez un fichier `robot_publisher.py` dans le répertoire `test_publisher` avec le fichier ``__init__`` de votre package ROS 2 (`test_publisher` dans ce cas) et rendez-le exécutable.
 
-Pour ce faire, créez un fichier, `robot_publisher.py` dans le dossier` scripts` dans votre package ROS (par exemple `test_publisher`) et le rendre exécutable.
+```shell
+cd ~/ros2_ws/src/test_publisher/test_publisher
+touch robot_publisher.py
+chmod +x robot_publisher.py
+```
 
-=== "Python"
-    ```shell
-    mkdir test_publisher/scripts
-    touch test_publisher/scripts/robot_publisher.py
-    chmod +x test_publisher/scripts/robot_publisher.py
-    ```
-
-=== "C++"
-    ```shell
-    mkdir test_publisher/src
-    touch test_publisher/src/robot_publisher.cpp
-    ```
-
-!!! note "Note Python"
-    Vous devez modifier l'autorisation du fichier en exécutable pour pouvoir s'exécuter (comme fait dans la dernière commande illustrée ci-dessus).
+!!! note 
+    Vous devez modifier l'autorisation du fichier en exécutable pour pouvoir l'exécuter (comme cela a été fait dans la dernière commande ci-dessus).
 
 Ouvrez maintenant le fichier et copiez et collez le code suivant à l'intérieur:
 
-=== "Python"
-    ```python
-    #!/usr/bin/env python
-    """
-    Script pour déplacer le robot
-    """
-    import rospy
-    from geometry_msgs.msg import Twist
-    import time
+```python
+#!/usr/bin/env python
+"""
+Script pour déplacer le robot
+"""
+import rclpy
+from rclpy.node import Node
+from geometry_msgs.msg import Twist
+import time
 
 
-    def move_robot():
-        rospy.init_node('robot_publisher', anonymous=True)
-        # Créez un éditeur qui peut "parler" à Robot et lui dire de bouger
-        pub = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
+class MoveRobot(Node):
+    def __init__(self):
+        super().__init__("move_robot")
+        # Créez un éditeur qui peut "parler" au Robot et lui dire de se déplacer
+        self.pub = self.create_publisher(
+            Twist, "/robot_base_controller/cmd_vel_unstamped", 10
+        )
 
-        # Fixer le taux de publication à 10 Hz
-        rate = rospy.Rate(10)
-
+    def run(self):
         # Créez un message de torsion et ajoutez des valeurs linéaires X et Z angulaires
         move_cmd = Twist()
 
         ######## Se déplacer tout droit ########
         print("Se déplaçant tout droit")
-        move_cmd.linear.x = 0.3             # se déplacer en axe x à 0,3 m / s
+        move_cmd.linear.x = 0.5  # se déplacer en axe x à 0,5 m/s
+        move_cmd.angular.z = 0.0
+
+        now = time.time()
+        # Pour les 4 secondes suivantes, publier les commandes cmd_vel move
+        while time.time() - now < 4:
+            self.pub.publish(move_cmd)  # publier sur robot
+
+        ######## Arrêt ########
+        print("Arrêt")
+        move_cmd.linear.x = 0.0
+        move_cmd.angular.z = 0.0 # Donner à la fois zéro arrêtera le robot
+
+        now = time.time()
+        # Pour les 5 secondes suivantes, publier les commandes cmd_vel move
+        while time.time() - now < 5:
+            self.pub.publish(move_cmd)
+
+        ######## Rotatif dans le sens intérieure ########
+        print("Tournante")
+        move_cmd.linear.x = 0.0
+        move_cmd.angular.z = 0.7  # tourner à 0,7 rad/s
+
+        now = time.time()
+        # Pour les 15 secondes suivantes, publier les commandes cmd_vel move
+        while time.time() - now < 15:
+            self.pub.publish(move_cmd)
+
+        ######## Arrêt ########
+        print("Arrêt")
+        move_cmd.linear.x = 0.0
         move_cmd.angular.z = 0.0
 
         now = time.time()
         # Pour les 3 secondes suivantes, publier les commandes cmd_vel move
         while time.time() - now < 3:
-            pub.publish(move_cmd)           # publier sur robot
-            rate.sleep()
+            self.pub.publish(move_cmd)
 
-        ######## Rotatif dans le sens intérieure ########
-        print("Tournante")
-        move_cmd.linear.x = 0.0
-        move_cmd.angular.z = 0.2            # tourner à 0,2 rad / sec
-
-        now = time.time()
-        # Pour les 3 prochaines secondes, publiez les commandes cmd_vel move
-        while time.time() - now < 3:
-            pub.publish(move_cmd)           # publier sur robot
-            rate.sleep()
-
-        ######## Arrêt ########
-        print("Arrêt")
-        move_cmd.linear.x = 0.0
-        move_cmd.angular.z = 0.0            # Donner à la fois zéro arrêtera le robot
-
-        now = time.time()
-        # Pour les 1 secondes suivantes, publier les commandes CMD_VEL MOVE
-        while time.time() - now < 1:
-            pub.publish(move_cmd)           # publier sur robot
-            rate.sleep()
-
-        print("Sortie")
+        print("Exit")
 
 
-    if __name__ == '__main__':
-        try:
-            move_robot()
-        except rospy.ROSInterruptException:
-            pass
-    ```
+def main(args=None):
+    rclpy.init(args=args)
 
-=== "C++"
-    ```cpp
-    #include <ros/ros.h>
-    #include <geometry_msgs/Twist.h>
-    #include <ctime>
+    move_robot = MoveRobot()
+    move_robot.run()
 
-    void move_robot()
-    {
-        ros::NodeHandle nh;
-        // Créez un éditeur qui peut "parler" à Robot et lui dire de bouger
-        ros::Publisher pub = nh.advertise<geometry_msgs::Twist>("/cmd_vel", 10);
+    rclpy.shutdown()
 
-        // Fixer le taux de publication à 10 Hz
-        ros::Rate rate(10);
 
-        // Créez un message de torsion et ajoutez des valeurs linéaires X et Z angulaires
-        geometry_msgs::Twist move_cmd;
-
-        //////////// Se déplacer tout droit ////////////
-        ROS_INFO("Se déplaçant tout droit");
-        move_cmd.linear.x = 0.3;            // se déplacer en axe x à 0,3 m / s
-        move_cmd.angular.z = 0.0;
-
-        time_t now = time(0);
-        // Pour les 3 secondes suivantes, publier les commandes cmd_vel move
-        while (time(0) - now < 3)
-        {
-            pub.publish(move_cmd);          // publier sur robot
-            rate.sleep();
-        }
-
-        //////////// Rotatif dans le sens intérieure ////////////
-        ROS_INFO("Tournante");
-        move_cmd.linear.x = 0.0;
-        move_cmd.angular.z = 0.2;           // tourner à 0,2 rad / sec
-
-        now = time(0);
-        // Pour les 3 prochaines secondes, publiez les commandes cmd_vel move
-        while (time(0) - now < 3)
-        {
-            pub.publish(move_cmd);          // publier sur robot
-            rate.sleep();
-        }
-
-        //////////// Arrêt ////////////
-        ROS_INFO("Arrêt");
-        move_cmd.linear.x = 0.0;
-        move_cmd.angular.z = 0.0;           // Donner à la fois zéro arrêtera le robot
-
-        now = time(0);
-        // Pour les 1 secondes suivantes, publier les commandes CMD_VEL MOVE
-        while (time(0) - now < 1)
-        {
-            pub.publish(move_cmd);          // publier sur robot
-            rate.sleep();
-        }
-
-        ROS_INFO("Sortie");
-    }
-
-    int main(int argc, char **argv)
-    {
-        ros::init(argc, argv, "robot_publisher");
-        try
-        {
-            move_robot();
-        }
-        catch (ros::Exception &e)
-        {
-            ROS_ERROR("Exception encountered: %s", e.what());
-            return 1;
-        }
-
-        return 0;
-    }
-    ```
-
-Ouvrez maintenant le fichier et copiez et collez le code suivant à l'intérieur:
-
-## compiler et courir
-
-Pour C ++, nous devons mettre à jour le fichier `CMakeLists.txt` pour inclure notre nouveau programme. Ajoutez la ligne suivante au fichier `CMakeLists.txt`:
-
-```cmake
-add_executable(robot_publisher src/robot_publisher.cpp)
-target_link_libraries(robot_publisher ${catkin_LIBRARIES})
+if __name__ == "__main__":
+    main()
 ```
 
-Puis exécutez la commande suivante pour compiler le code:
+Ce code fera bouger le robot tout droit pendant 4 secondes, s'arrêtera pendant 5 secondes, tournera dans le sens inverse des aiguilles d'une montre pendant 15 secondes, puis s'arrêtera.
+
+## Compiler et exécuter
+
+!!! Note 
+    Nous devons mettre à jour le fichier `setup.py` dans le package ROS 2 pour inclure notre nouveau programme. Ajoutez la ligne suivante dans la section `console_scripts` du fichier `setup.py`:
+
+    ```python
+    entry_points={
+            'console_scripts': [
+                    'move_robot = test_publisher.robot_publisher:main',
+            ],
+    },
+    ```
+Exécutez les commandes suivantes pour compiler le code,
 
 ```shell
-cd ~/catkin_ws
-catkin_make
+cd ~/ros2_ws
+colcon_build
 ```
 
-Pour le voir fonctionner, exécutez d'abord le robot en simulation en exécutant la commande suivante dans un terminal
+Pour le voir fonctionner, exécutez d'abord le robot en simulation en exécutant la commande suivante dans un terminal,
+```shell
+source ~/ros2_ws/install/setup.bash
+ros2 launch parc_robot_bringup task1_launch.py
+```
+Et exécutez les commandes suivantes dans un autre terminal pour exécuter ce nouveau programme,
 
 ```shell
-source ~/catkin_ws/devel/setup.bash
-roslaunch parc_robot parc_task2.launch
+source ~/ros2_ws/install/setup.bash
+ros2 run test_publisher robot_publisher.py
 ```
-
-Et exécutez la commande suivante dans un autre terminal pour exécuter ce nouveau programme:
-
-=== "Python"
-    ```shell
-    source ~/catkin_ws/devel/setup.bash
-    rosrun test_publisher robot_publisher.py
-    ```
-=== "C++"
-    ```shell
-    source ~/catkin_ws/devel/setup.bash
-    rosrun test_publisher robot_publisher
-    ```
-
-Si vous avez bien configuré, vous devriez voir le robot se déplacer dans Gazebo comme ci-dessous:
+Si vous avez tout bien configuré, vous devriez voir le robot se déplacer dans le Gazebo comme ci-dessous,
 
 ![publisher demo](assets/getting_started_demo.gif)
 
-<!-- ## Ressources supplémentaires
-
-Si vous souhaitez en savoir plus sur ROS, vous pouvez consulter les ressources suivantes:
-
-- [Tutoriels ROS](http://wiki.ros.org/ROS/Tutorials){target=_blank} - Tutoriels officiels ROS
-- [Liste de lecture YouTube ROS Tutorial YouTube](https://www.youtube.com/playlist?list=PLLSegLrePWgIbIrA4iehUQ-impvIXdd9Q){target=_blank} - Liste de lecture YouTube des tutoriels ROS. C'est une bonne ressource si vous préférez apprendre en regardant des vidéos. -->

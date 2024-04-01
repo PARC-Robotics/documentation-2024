@@ -1,14 +1,15 @@
 # How to set up your workspace
 
-In this tutorial, you will set up a directory on your ROS-enabled PC as your workspace for development and install the competition ROS packages. Please follow the instructions below carefully.
+In this tutorial, you will set up a directory on your ROS 2 enabled PC as your workspace for development and install the competition ROS 2 packages. Please follow the instructions below carefully.
 
 !!! note
     This can ONLY be completed after you have set up your PC (by following the tutorial here: [Setting up your PC](../getting-started-tutorials/setting-up-your-pc.md)).
 
-!!! note
-    If you are using a Docker container, you can skip this tutorial and follow the instructions in [Setting up your PC using Docker](../getting-started-tutorials/setting-up-with-docker.md) instead.
+<!-- uncommment once we have docker setup -->
+<!-- !!! note -->
+<!--     If you are using a Docker container, you can skip this tutorial and follow the instructions in [Setting up your PC using Docker](../getting-started-tutorials/setting-up-with-docker.md) instead. -->
 
-### Step 1: Setup ROS workspace
+### Step 1: Setup ROS 2 workspace
 
 Open a new terminal on your PC, then copy and paste the following one line at a time:
 ```sh
@@ -35,12 +36,14 @@ rosdep install --from-paths src --ignore-src --rosdistro humble -r -y
 ```
 
 ### Step 4: Compile packages
+
+The next step is to compile the installed packages using `colcon build`:
 ```sh
 cd ~/ros2_ws
 colcon build
 ```
 
-### Step 5: Set up ROS environment
+### Step 5: Set up ROS 2 environment
 The following command needs to be run in every new terminal you open to get access to ROS 2 commands:
 
 ```sh
@@ -78,12 +81,13 @@ source ~/.bashrc
 
 ### Step 6: Test installation
 
-If you completed the preceding tasks successfully, you should be able to run this ROS launch command and see the Gazebo simulator and RViz simulator open with the following display:
+If you completed the preceding tasks successfully, you should be able to run this ROS 2 launch command and see the Gazebo Classic simulator and RViz simulator open with the following display:
+
 ```sh
 ros2 launch parc_robot_bringup task_1_launch.py
 ```
 ![Gazebo Simulator window](assets/gazebo.png)
-Gazebo Simulator window
+Gazebo Classic Simulator window
 
 
 ![RViz window](assets/rviz.png)
@@ -102,15 +106,23 @@ You need to `publish`/write to the `topic` `/cmd_vel` to move the robot.
 The following guide will help you control the robot using keyboard. Once you have tested that, you can follow the [understanding-ros](../getting-started-with-ros) guide to write a python program to control the robot.
 
 ### Step 7: Controlling the robot using keyboard
-Run the following command in a new terminal
+
+First of all, the `teleop_twist_keyboard` ROS 2 package is installed which will enable us to use the keyboard to control the robot in a terminal as follows,
+
+```sh
+sudo apt install ros-humble-teleop-twist-keyboard
+```
+
+Then run the following command in a new terminal,
 
 ```sh
 ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args --remap \
 /cmd_vel:=/robot_base_controller/cmd_vel_unstamped
 ```
 
-Now keeping this second terminal active (or on top) press `i` to move the robot forward, you can see the robot moving in "RViz" and "Gazebo" windows.
-you can use the keys shown below to move the robot and `k` key to stop the movement.
+Now keeping this second terminal active (or on top) press `i` to move the robot forward, you can see the robot moving in the "RViz" and "Gazebo" windows.
+You can use the keys shown below to move the robot and `k` key to stop the movement.
+
 ```sh
 Moving around:
    u    i    o

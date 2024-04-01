@@ -15,21 +15,12 @@ Whether you are a beginner or a more advanced ROS 2 developer, we recommend you 
 !!! note
     Your overall learning experience in this competition is **strongly dependent** on how much of the fundamental concepts of ROS 2 you can grasp early on. Hence, we **strongly recommend** that you put in the time to use these resources.
 
-<!-- - [ROS Tutorials](http://wiki.ros.org/ROS/Tutorials){target=_blank}  - Official ROS tutorials
-- [ROS Tutorial YouTube Playlist](https://www.youtube.com/playlist?list=PLLSegLrePWgIbIrA4iehUQ-impvIXdd9Q){target=_blank}  - YouTube playlist of ROS tutorials. This is a good resource if you prefer to learn by watching videos
-
-* [Chapter 5](http://wiki.ros.org/ROS/Tutorials/UnderstandingNodes) (ROS Nodes): *"This tutorial introduces ROS graph concepts and discusses the use of roscore, rosnode, and rosrun commandline tools"*
-* [Chapter 6](http://wiki.ros.org/ROS/Tutorials/UnderstandingTopics) (ROS Topics): *"This tutorial introduces ROS topics as well as using the rostopic and rqt_plot commandline tools."*
-* [Chapter 12](http://wiki.ros.org/ROS/Tutorials/WritingPublisherSubscriber%28python%29) (Writing simple publisher and subscriber in Python)
-* Understand the [core tools provided by ROS](https://www.ros.org/core-components/), including RViz, rqt_graph, Gazebo, etc. -->
-
-
 ## Writing your First ROS 2 Package
 
-After you complete the required tutorials listed above, you can start [setting up the workspace](../setting-up-your-workspace).
+After you complete the required tutorials listed above, you can start [setting up the workspace](../getting-started-tutorials/setting-up-your-workspace.md).
 
-Assuming the workspace at `~/ros2_ws/` as completed from the steps done in [setting up your workspace](../setting-up-your-workspace),
-this should be your folder structure till now:
+Assuming the workspace at `~/ros2_ws/` as completed from the steps done in [setting up your workspace](../getting-started-tutorials/setting-up-your-workspace.md),
+this should be your folder structure:
 
 ```
 ~/ros2_ws/
@@ -63,7 +54,7 @@ this should be your folder structure till now:
 <!-- cd ~/ros2_ws/src/parc_solutions -->
 <!-- ``` -->
 
-First navigate to the source folder in your workspace:
+First navigate to the source folder in your workspace,
 ```shell
 cd ~/ros2_ws/src
 ```
@@ -74,13 +65,13 @@ ros2 pkg create test_publisher --build-type ament_python \
 --dependencies rclpy std_msgs geometry_msgs
 ```
 
-Change directory into the newly created ROS 2 Python package 
+Change directory into the newly created ROS 2 Python package,
 
 ```shell
 cd test_publisher/
 ```
 
-The package file structure is as follows,
+The `test_publisher` package file structure is as follows,
 
 ```
 ├── package.xml
@@ -98,11 +89,11 @@ The package file structure is as follows,
 
 ### Moving the Robot Programmatically
 
-[Setting up your workspace](../setting-up-your-workspace) guide has already shown how to control the robot with keyboard using `teleoperation`.
+[Setting up your workspace](../getting-started-tutorials/setting-up-your-workspace.md) guide has already shown how to control the robot with keyboard using `teleop_twist_keyboard`.
 
-But this guide will help you to move the robot by publishing commands to `/cmd_vel` topic programmically using Python and C++. In the competition, you would have to choose one of these languages/platforms to interact with ROS.
+This guide will help you to move the robot by publishing commands to the `/robot_base_controller/cmd_vel_unstamped` topic programmically using Python, which is the language that will be used in the competition to interact with ROS 2.
 
-To do this, create a file, `robot_publisher.py` inside `test_publisher` directory with the `__init__` file your ROS package (for example `test_publisher`) and make it executable.
+To do this, create a file, `robot_publisher.py` inside the `test_publisher` directory with the `__init__` file your ROS 2 package (`test_publisher` in this instance) and make it executable.
 
 ```shell
 cd ~/ros2_ws/src/test_publisher/test_publisher
@@ -129,13 +120,16 @@ import time
 class MoveRobot(Node):
     def __init__(self):
         super().__init__("move_robot")
+        # Create a publisher which can "talk" to Robot and tell it to move
         self.pub = self.create_publisher(
             Twist, "/robot_base_controller/cmd_vel_unstamped", 10
         )
 
     def run(self):
+        # Create a Twist message and add linear x and angular z values
         move_cmd = Twist()
 
+        ######## Move Straight ########
         print("Moving Straight")
         move_cmd.linear.x = 0.5  # move in x axis at 0.5 m/s
         move_cmd.angular.z = 0.0
@@ -144,7 +138,8 @@ class MoveRobot(Node):
         # For the next 4 seconds publish cmd_vel move commands
         while time.time() - now < 4:
             self.pub.publish(move_cmd)  # publish to robot
-
+            
+        ######## Stop ########
         print("Stopping")
         move_cmd.linear.x = 0.0
         move_cmd.angular.z = 0.0 # Assigning both to 0.0 stops the robot
@@ -154,6 +149,7 @@ class MoveRobot(Node):
         while time.time() - now < 5:
             self.pub.publish(move_cmd)
 
+        ######## Rotating Counterclockwise ########
         print("Rotating")
         move_cmd.linear.x = 0.0
         move_cmd.angular.z = 0.7  # rotate at 0.7 rad/s
@@ -163,6 +159,7 @@ class MoveRobot(Node):
         while time.time() - now < 15:
             self.pub.publish(move_cmd)
 
+        ######## Stop ########
         print("Stopping")
         move_cmd.linear.x = 0.0
         move_cmd.angular.z = 0.0
@@ -194,7 +191,7 @@ This code will make the robot move straight for 4 seconds, stop for 5 seconcds, 
 ### Compile and Run
 
 !!! Note 
-    For Python, we need to update the `setup.py` file in the ROS 2 package to include our new program. Add the following line in the`console_scripts` section of the `setup.py` file:
+    We need to update the `setup.py` file in the ROS 2 package to include our new program. Add the following line in the`console_scripts` section of the `setup.py` file:
 
     ```python
     entry_points={
@@ -204,28 +201,28 @@ This code will make the robot move straight for 4 seconds, stop for 5 seconcds, 
     },
     ```
 
-Run the following command to compile the code:
+Run the following commands to compile the code,
 
 ```shell
 cd ~/ros2_ws
 colcon_build
 ```
 
-To see it working, first run the robot in simulation by running the following command in one terminal
+To see it working, first run the robot in simulation by running the following command in one terminal,
 
 ```shell
 source ~/ros2_ws/install/setup.bash
 ros2 launch parc_robot_bringup task1_launch.py
 ```
 
-And run the following command in another terminal to run this new program:
+And run the following commands in another terminal to run this new program,
 
 ```shell
 source ~/ros2_ws/install/setup.bash
 ros2 run test_publisher robot_publisher.py
 ```
 
-If you have set up everything well, you should see the robot moving in Gazebo as below:
+If you have set up everything well, you should see the robot moving in Gazebo as below,
 
 ![publisher demo](assets/getting_started_demo.gif)
 

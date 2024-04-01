@@ -21,33 +21,32 @@ You will need a computer that has all (or at least most) of these specifications
 
 ## Operating System (OS)
 
-We will be using **[Ubuntu Jammy (22.04)](https://releases.ubuntu.com/jammy/){target=_blank}** operating system (OS) which is a flavor of [Linux](https://en.wikipedia.org/wiki/Linux){target=_blank}. We know that some participants may have limited or no experience using Ubuntu, so here is a guide on different ways of setting up an operational Ubuntu Focal instance for this competition
+We will be using **[Ubuntu Jammy (22.04)](https://releases.ubuntu.com/jammy/){target=_blank}** operating system (OS) which is a flavor of [Linux](https://en.wikipedia.org/wiki/Linux){target=_blank}. We know that some participants may have limited or no experience using Ubuntu, so here is a guide on different ways of setting up an operational Ubuntu Focal instance for this competition.
 
-If you have a Windows PC (or any other operating system different from Ubuntu Jammy 22.04), here are three (3) options to explore:
+If you have a Windows PC (or any other operating system different from Ubuntu Jammy 22.04), here are two (2) options to explore:
+<!-- If you have a Windows PC (or any other operating system different from Ubuntu Jammy 22.04), here are three (3) options to explore: -->
 
 - Option 1 (Recommended): **Dual-Boot**: Install **[Ubuntu Jammy (22.04)](https://releases.ubuntu.com/jammy/){target=_blank}** in a dual-boot alongside your Windows OS.
-- Option 2: **Using Docker:** Run **[Ubuntu Jammy (22.04)](https://releases.ubuntu.com/jammy/){target=_blank}** in a Docker container on your native Windows OS.
-- Option 3: **Using Virtual Machine:** Run **[Ubuntu Jammy (22.04)](https://releases.ubuntu.com/jammy/){target=_blank}** in a Virtual Machine (VM) on your native Windows OS.
+<!-- - Option 2: **Using Docker:** Run **[Ubuntu Jammy (22.04)](https://releases.ubuntu.com/jammy/){target=_blank}** in a Docker container on your native Windows OS. -->
+- Option 2: **Using Virtual Machine:** Run **[Ubuntu Jammy (22.04)](https://releases.ubuntu.com/jammy/){target=_blank}** in a Virtual Machine (VM) on your native Windows OS.
 
 === "Dual-Boot (Recommended)"
     - Here is a [good guide](https://www.how2shout.com/linux/install-ubuntu-22-04-jammy-alongside-windows-10-dual-boot/){target=_blank} you can follow to install **[Ubuntu Jammy (22.04)](https://releases.ubuntu.com/jammy/){target=_blank}** in a dual-boot alongside your Windows OS.
-=== "Using Docker"
-    - We have provided a [detailed guide](../getting-started-tutorials/setting-up-with-docker.md) on installing Docker on your PC and setting up the right Docker container to run the entire competition. 
-    - If you are concerned about the dual-boot option, we recommend considering this option.
-
 === "Using Virtual Machine"
     - Here is a [good guide](https://ubuntu.com/tutorials/how-to-run-ubuntu-desktop-on-a-virtual-machine-using-virtualbox#1-overview){target=_blank} you can follow to install VirtualBox on your PC and run Ubuntu. 
+<!-- === "Using Docker" -->
+<!--     - We have provided a [detailed guide](../getting-started-tutorials/setting-up-with-docker.md) on installing Docker on your PC and setting up the right Docker container to run the entire competition.  -->
+<!--     - If you are concerned about the dual-boot option, we recommend considering this option. -->
+<!---->
+<!-- === "Using Virtual Machine" -->
+<!--     - Here is a [good guide](https://ubuntu.com/tutorials/how-to-run-ubuntu-desktop-on-a-virtual-machine-using-virtualbox#1-overview){target=_blank} you can follow to install VirtualBox on your PC and run Ubuntu.  -->
+<!---->
 
-
-<!-- ## Operating System
-If not already installed, Install **[Ubuntu Focal (20.04)](https://releases.ubuntu.com/focal/){target=_blank}** on the system by following [this guide](https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview){target=_blank}.
-
-!!! note
-    It is highly recommended to install [Focal (20.04)](https://releases.ubuntu.com/focal/){target=_blank} version of Ubuntu due to [ROS (Noetic)](http://wiki.ros.org/noetic){target=_blank} dependency. -->
 
 ## Installing ROS
-!!! note
-    If you followed the **Using Docker** option above, please SKIP this step.
+<!-- Uncomment for Docker install -->
+<!-- !!! note -->
+<!--     If you followed the **Using Docker** option above, please SKIP this step. -->
 
 Once you have a fresh **[Ubuntu Jammy (22.04)](https://releases.ubuntu.com/jammy/){target=_blank}** installation, the next step is to install ROS. We are using the [ROS2 Humble](https://docs.ros.org/en/humble) distribution for this competition. You can install ROS2 Humble by following [this guide](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html){target=_blank}, install the Desktop version, `ros-humble-desktop`, and follow the rest of the setup guide.
 
