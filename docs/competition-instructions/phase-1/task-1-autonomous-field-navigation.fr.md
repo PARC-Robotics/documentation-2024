@@ -26,13 +26,13 @@ Vous devriez voir l'affichage ci-dessous dans Gazebo et RViz respectivement. A d
 * Nous avons préparé trois itinéraires prédéfinis que vous pouvez utiliser lorsque vous développez votre solution, chaque itinéraire ayant un emplacement d'objectif différent.
 
 === "Itinéraire 1"
-     ![task1_route1](../assets/Task1Route1.png)
+     ![task1_route1](../assets/Task1Route1.jpg)
 
 === "Itinéraire 2"
-     ![task1_route2](../assets/Task1Route2.png)
+     ![task1_route2](../assets/Task1Route2.jpg)
 
 === "Itinéraire 3"
-     ![task1_route3](../assets/Task1Route3.png)
+     ![task1_route3](../assets/Task1Route3.jpg)
 
 
 La route par défaut est `route1`, mais vous pouvez sélectionner la deuxième et la troisième option de route (`route2` et `route3`) en passant l'argument dans la commande roslaunch comme suit :

@@ -8,7 +8,7 @@ We have planned this competition around ROS because of its features as well as i
 
 ## ROS 2 OnRamp!
 
-Whether you are a beginner or a more advanced ROS 2 developer, we recommend you take some time to review the following ROS 2 Humble tutorials.
+Whether you are a beginner or a more advanced ROS 2 developer, we recommend you take some time to review the following ROS 2 Humble tutorials, particularly the beginner section.
 
 * [ROS 2 Official Tutorials](https://docs.ros.org/en/humble/Tutorials.html){target=_blank}
 * [ROS 2 Tutorial Youtube Playlist](https://www.youtube.com/playlist?list=PLLSegLrePWgJudpPUof4-nVFHGkB62Izy){target=_blank}  (**Strongly recommended for beginners**, the content is excellent!)

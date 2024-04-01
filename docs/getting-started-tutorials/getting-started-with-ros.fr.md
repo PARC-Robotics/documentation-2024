@@ -4,7 +4,7 @@ Le [Robot Operating System](https://www.ros.org/about-ros/) (ROS) est un cadre f
 
 Nous avons planifié ce concours autour de ROS en raison de ses fonctionnalités ainsi que de son utilisation répandue dans la recherche et l'industrie en robotique.
 
-![ROS et API](assets/ros-apis.PNG)
+![ROS et API](assets/ros-apis.png)
 
 Pour démarrer avec ROS (si vous êtes débutant), nous vous recommandons de suivre les tutoriels "Niveau Débutant" dans les [Tutoriels ROS] officiels (http://wiki.ros.org/ROS/Tutorials). Assurez-vous de remplir au moins les éléments suivants :
 

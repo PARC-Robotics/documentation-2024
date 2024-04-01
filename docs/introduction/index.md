@@ -2,28 +2,27 @@
 
 ![Motivating image](./assets/overview.PNG)
 
-<!-- Talk about increasing population and need for food security on the continent. Applying robotics and AI to monitor and boost crop yields. -->
 
-The PARC Engineers League invites participants to reimagine how robots can augment the capabilities of human labor in a task of growing prevalence - autonomous farming.
+Autonomous farming has been on the rise in recent years, utilizing robotics and Artificial Intelligence (AI) to boost farmers' productivity, reduce labour costs and improve crop yield and quality. The increasing
+world population and the need for global food security are some of the factors fueling the advancements in autonomous farming and precision agriculture.
 
-With growing global food insecurity and pressures from climate change, it is more important than ever to develop novel approaches to sustainable agriculture. Maintaing the sustainable agriculture theme from the previous year, the 2024 PARC Engineers League invites teams to reimagine how robotics and AI can steer the way to a more sustainable agriculture future for Africa. 
+Last year's PARC Engineers League edition was centered around sustainable agriculture and the challenges involved autonomously navigating the **PARC AgRobot** (a wheeled mobile robot) through a lettuce field and identifying weeds. 
 
-The challenge of the competition is to build software to operate the **PARC AgRobot** (a wheeled mobile robot) to perform autonomous agricultural tasks including: precise navigation through a tomato field, and determining the crop yield of the field by detecting the fruits on each tomato plant using computer vision. 
+Maintaining the theme of sustainable agriculture, the 2024 PARC Engineers League invites participants to envision how to achieve a more sustainable agricultural future in Africa by implementing robotics.
 
+This year's challenge is to build software to operate the **PARC AgRobot** to perform the following autonomous tasks: ***precise navigation*** through a tomato field, and ***determining the crop yield*** of the field by detecting the fruits on each tomato plant using computer vision. 
 
 The competition consists of two phases: the **Simulation Phase** and the **Real World Phase**.
 
-
 ## Simulation Phase
 <!-- In this phase, teams would interact with the **PARC AgRobot** in simulation (using the Gazebo Robot Simulator). Participants are required to write software to complete three fundamental tasks for agricultural robots: -->
-In this phase, teams will work with the **PARC AgRobot** in simulation (using the Gazebo Robot Simulator) and use state-of-the-art tools (e.g., ROS, OpenCV, etc.) to develop solutions to complete two fundamental tasks for agricultural robots:
+In this phase, teams will work with the **PARC AgRobot** in simulation (using the Gazebo Classic Robot Simulator) and use state-of-the-art tools (e.g., ROS, OpenCV, etc.) to develop solutions to complete two fundamental tasks for agricultural robots:
 
 * Autonomous field navigation
 * Crop yield estimation
 
 This phase is fully virtual. Participating teams will follow the instructions in this documentation to set up their PCs and download the complete simulation packages required to complete the tasks. 
 Teams are required to complete and upload their solutions on or before the Phase 1 deadline. Following team evaluations, best performing teams will qualify to compete in Phase 2: **Real World Phase**.
-
 
 
 ## Real World Phase
