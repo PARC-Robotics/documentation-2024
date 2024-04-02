@@ -2,7 +2,7 @@
 
 ## Phase 1: Simulation
 
-In this simulation-only phase, teams would work on providing solutions to two (2) fundamental tasks of a delivery robot which are: 
+In this simulation-only phase, teams would work on providing solutions to two (2) fundamental tasks of an Agricultural robot which are: 
 
 * Autonomous field navigation
 * Crop yield estimation
@@ -11,7 +11,7 @@ The simulation platform to be used in this phase is the [Gazebo Classic Simulato
 
 Each task is designed as stand-alone, not depending on other task functionalities, hence, we request teams to complete the tasks separately. The tasks would be evaluated individually and the total team score for this phase would be the sum of individual task scores.
 
-Teams are provided with the **PARC AgRobot**'s ROS packages and Gazebo environment models (see description below) to enable them develop and test their solutions (see [GitHub Repository](https://github.com/PARC-Robotics/PARC2024-Engineers-League).
+Teams are provided with the **PARC AgRobot**'s ROS 2 packages and Gazebo environment models (see description below) to enable them develop and test their solutions (see [GitHub Repository](https://github.com/PARC-Robotics/PARC2024-Engineers-League)).
 
 
 ### The PARC AgRobot

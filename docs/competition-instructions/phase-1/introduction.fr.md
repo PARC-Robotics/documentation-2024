@@ -5,9 +5,9 @@
 Dans cette phase de simulation uniquement, les équipes travailleraient à fournir des solutions à deux (2) tâches fondamentales d'un robot de livraison qui sont:
 
 * Navigation sur le terrain autonome
-* Détection des mauvaises herbes
+* Estimation du rendement des cultures
 
-La plate-forme de simulation à utiliser dans cette phase est le [simulateur de gazebo](http://gazebosim.org/). Les équipes doivent développer, tester et soumettre des logiciels pour accomplir avec succès ces tâches de manière autonome. Cette phase évaluera les capacités des équipes pour accomplir avec succès ces tâches fondamentales requises pour rivaliser dans la phase 2 (sur le robot physique).
+La plate-forme de simulation à utiliser dans cette phase est le [simulateur de gazebo](https://classic.gazebosim.org/tutorials?tut=install_ubuntu&cat=install). Les équipes doivent développer, tester et soumettre des logiciels pour accomplir avec succès ces tâches de manière autonome. Cette phase évaluera les capacités des équipes pour accomplir avec succès ces tâches fondamentales requises pour rivaliser dans la phase 2 (sur le robot physique).
 
 Chaque tâche est conçue comme autonome, sans en fonction des autres fonctionnalités de la tâche, par conséquent, nous demandons aux équipes de terminer les tâches séparément. Les tâches seraient évaluées individuellement et le score total de l'équipe pour cette phase serait la somme des scores de tâches individuels.
 

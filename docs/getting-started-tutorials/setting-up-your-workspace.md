@@ -78,8 +78,24 @@ source ~/.bashrc
     source ~/ros2_ws/install/setup.bash
     ```
 
+### Step 6: Gazebo Classic installation and setup
 
-### Step 6: Test installation
+Gazebo Classic, version 11, is the robot simulator used in the competition and can be installed [here](https://classic.gazebosim.org/tutorials?tut=install_ubuntu&cat=install){target=_blank}.
+
+The tomato field is made up of custom models, the tomato plants for instance, that are not available in Gazebo. These models will need to be copied to the appropriate directory to completely view the tomato field.
+
+Navigate to the models folder in the `parc_robot_bringup` package, then copy its directory contents to the Gazebo `models` directory on your PC:
+
+```sh
+cd ~/ros2_ws/src/parc_robot_bringup/models
+cp -R . ~/.gazebo/models
+```
+
+!!! Note 
+    The 3D visualizer for ROS, `RViz`, is automatically installed when ROS 2 Humble was installed on your PC in the [setting up your PC](../getting-started-tutorials/setting-up-your-pc.md) tutorial.
+
+
+### Step 7: Test installation
 
 If you completed the preceding tasks successfully, you should be able to run this ROS 2 launch command and see the Gazebo Classic simulator and RViz simulator open with the following display:
 
@@ -105,7 +121,7 @@ You will see a screen like this:
 You need to `publish`/write to the `topic` `/cmd_vel` to move the robot.
 The following guide will help you control the robot using keyboard. Once you have tested that, you can follow the [understanding-ros](../getting-started-with-ros) guide to write a python program to control the robot.
 
-### Step 7: Controlling the robot using keyboard
+### Step 8: Controlling the robot using keyboard
 
 First of all, the `teleop_twist_keyboard` ROS 2 package is installed which will enable us to use the keyboard to control the robot in a terminal as follows,
 
