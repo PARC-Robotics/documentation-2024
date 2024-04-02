@@ -17,13 +17,13 @@ Les équipes reçoivent des packages ROS et des modèles d'environnement de gaze
 ### The PARC AgRobot
 Le **PARC AgRobot** (Robot agricole) est un véhicule au sol sans pilote (UGV) équipé de différents capteurs pour vous aider à atteindre votre objectif. Les capteurs sont:
 
-* **YDLiDAR:** Un capteur lidar situé en haut de la base du robot. Le Ydlidar publie le sujet `/ scan».
+* **YDLiDAR:** Un capteur lidar situé en haut de la base du robot. Le Ydlidar publie le sujet `/scan`.
 
 * **RGB Camera (x2):** Deux caméras RVB orientées vers le bas sont fournies sur le côté gauche et droit du robot. Ces caméras sont suspendues via un surplomb et donne la vue supérieure des terres agricoles. Les sujets publiés par ces caméras ont des noms de groupe qui sont `/left_camera/` et `/right_camera/`.
 
 * **ZED 2i Camera:** Il s'agit d'une caméra stéréo à l'avant de la base du robot. Il publie tous les sujets `/zed2/`, y compris les données IMU (`/zed2/imu/data`) et les données de cloud (`/zed2/point_cloud/cloud_registerred`)
 
-* **GPS:** Pour la localisation, nous avons fourni un capteur GPS qui simule un GNSS (système satellite de navigation global). Il publie les sujets `/gps/`.
+* **GPS:** Pour la localisation, nous avons fourni un capteur GPS qui simule un GNSS (système satellite de navigation global). Il publie le sujet `/gps/fix`.
 
 
 La figure ci-dessous montre l'agrobot avec des capteurs étiquetés.
@@ -32,6 +32,6 @@ La figure ci-dessous montre l'agrobot avec des capteurs étiquetés.
 
 
 ### Environnement de simulation
-L'environnement de simulation utilisé dans cette phase est modélisé comme des terres agricoles réalistes avec un terrain accidenté, des cultures de laitue, des arbres, des granges et une camionnette.
+L'environnement de simulation utilisé dans cette phase est modélisé comme une terre agricole réaliste avec un terrain accidenté et des plants de tomates fruitiers.
 
 ![simulation](../assets/world_description.png)

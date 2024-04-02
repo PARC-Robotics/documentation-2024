@@ -23,7 +23,7 @@ The **PARC AgRobot** (Agricultural Robot) is an unmanned ground vehicle (UGV) eq
 
 * **ZED 2i Camera:** This is a stereo camera at the front of the robot base. It publishes all the `/zed2/` topics including imu data(`/zed2/imu/data`) and point cloud data(`/zed2/point_cloud/cloud_registered`)
 
-* **GPS:** For localization, we provided a GPS sensor which simulates a GNSS (Global Navigation Satellite System). It publishes the `/gps/` topics.
+* **GPS:** For localization, we provided a GPS sensor which simulates a GNSS (Global Navigation Satellite System). It publishes the `/gps/fix` topic.
 
 
 The figure below shows the AgRobot with sensors labelled.
@@ -32,7 +32,7 @@ The figure below shows the AgRobot with sensors labelled.
 
 
 ### Simulation Environment
-The simulation environment used in this phase is modeled as a realistic farmland with rough terrain, lettuce crops, trees, barns, and pickup truck.
+The simulation environment used in this phase is modeled as a realistic farmland with rough terrain and fruit bearing tomato plants.
 
 ![simulation](../assets/world_description.png)
 
