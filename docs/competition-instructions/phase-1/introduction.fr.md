@@ -2,7 +2,7 @@
 
 ## Phase 1: Simulation
 
-Dans cette phase de simulation uniquement, les équipes travailleraient à fournir des solutions à deux (2) tâches fondamentales d'un robot de livraison qui sont:
+Dans cette phase de simulation uniquement, les équipes travailleraient à apporter des solutions à deux (2) tâches fondamentales d'un robot agricole qui sont
 
 * Navigation sur le terrain autonome
 * Estimation du rendement des cultures

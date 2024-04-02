@@ -2,7 +2,7 @@
 
 ## Phase 1: Simulation
 
-In this simulation-only phase, teams would work on providing solutions to two (2) fundamental tasks of an Agricultural robot which are: 
+In this simulation-only phase, teams would work on providing solutions to two (2) fundamental tasks of an agricultural robot which are: 
 
 * Autonomous field navigation
 * Crop yield estimation
