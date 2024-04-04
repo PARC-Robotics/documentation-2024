@@ -52,34 +52,91 @@ ros2 launch parc_robot_bringup task1_launch.py route:=route3
 ```python
 #!/usr/bin/env python3
 
-import rospy
+import rclpy
+from rclpy.node import Node
 
-rospy.init_node('goal_parameter')
 
-# Get goal parameter
-lat, lon = rospy.get_param('goal_latitude'), rospy.get_param('goal_longitude')
+class GoalLocation(Node):
+    def __init__(self):
+        super().__init__("goal_location")
 
-# Print goal location
-rospy.loginfo("goal location: %f %f", lat, lon)
+        # Declare goal latitude and longitude parameters
+        self.declare_parameter("goal_latitude", rclpy.Parameter.Type.DOUBLE)
+        self.declare_parameter("goal_longitude", rclpy.Parameter.Type.DOUBLE)
 
+        # Get goal location from world coordinates yaml file
+        goal_lat = self.get_parameter("goal_latitude")
+        goal_long = self.get_parameter("goal_longitude")
+
+        # Print goal location
+        self.get_logger().info(
+            "goal location: %f %f"
+            % (
+                goal_lat.value,
+                goal_long.value,
+            )
+        )
+
+
+def main(args=None):
+    rclpy.init(args=args)
+
+    goal_location = GoalLocation()
+    rclpy.spin(goal_location)
+
+    goal_location.destroy_node()
+    rclpy.shutdown()
+
+
+if __name__ == "__main__":
+    main()
 ```
-Similarly, the GPS coordinates of the pegs on the farmland can be obtained as a parameter if you need it for localization. Here is an example of how to obtain the GPS coordinate of **peg 01**:
+
+Similarly, the GPS coordinates of the pegs on the farmland can be obtained as a parameter if you need it for localization. Here is an example of how to obtain the GPS coordinate of **peg A**:
 
 ```python
 #!/usr/bin/env python3
 
-import rospy
+import rclpy
+from rclpy.node import Node
 
-rospy.init_node('peg01_coordinate')
 
-# Get goal parameter
-peg01 = rospy.get_param('peg_01')
-lat, lon = peg01['latitude'], peg01['longitude']
+class PegALocation(Node):
+    def __init__(self):
+        super().__init__("peg_a_coordinates")
 
-# Print goal location
-rospy.loginfo("peg01 coordinate: %f %f", lat, lon)
+        # Declare peg A latitude and longitude parameters
+        self.declare_parameter("peg_a_latitude", rclpy.Parameter.Type.DOUBLE)
+        self.declare_parameter("peg_a_longitude", rclpy.Parameter.Type.DOUBLE)
 
+        # Get peg A location from world coordinates yaml file
+        peg_a_lat = self.get_parameter("peg_a_latitude")
+        peg_a_long = self.get_parameter("peg_a_longitude")
+
+        # Print peg A location
+        self.get_logger().info(
+            "Peg A location: %f %f"
+            % (
+                peg_a_lat.value,
+                peg_a_long.value,
+            )
+        )
+
+
+def main(args=None):
+    rclpy.init(args=args)
+    
+    peg_a_coordinates = PegALocation()
+    rclpy.spin(peg_a_coordinates)
+
+    peg_a_coordinates.destroy_node()
+    rclpy.shutdown()
+
+
+if __name__ == "__main__":
+    main()
 ```
+
 !!! warning
     Please **DO NOT** use the cartesian coordinates of the goal location and pegs provided by Gazebo or the world file in any way. You will be penalized if you do.
 
@@ -93,14 +150,45 @@ Our module, **gps2cartesian**, provides a convenient way to convert GPS location
 ## pip install geographiclib
 ## Any of the PARC competition task must be running for this code to work.
 
-import rospy
+import rclpy
+from rclpy.node import Node
 from sensor_msgs.msg import NavSatFix
-from parc_robot.gps2cartesian import gps_to_cartesian
+from parc_robot_bringup.gps2cartesian import gps_to_cartesian
 
-rospy.init_node('gps_goal')
-gps = rospy.wait_for_message('gps/fix', NavSatFix) # subscribe to the gps topic once.
-x, y = gps_to_cartesian(gps.latitude, gps.longitude) # get the cartesian coordinates from the GPS coordinates.
-rospy.loginfo("The translation from the origin (0,0) to the gps location provided is {:.3f}, {:.3f} m.".format(x, y))
+
+class GPSGoal(Node):
+    def __init__(self):
+        super().__init__("gps_goal")
+
+        # Subscribe to the gps topic once
+        self.gps_sub = self.create_subscription(
+            NavSatFix, "/gps/fix", self.gps_callback, 1
+        )
+
+    def gps_callback(self, gps):
+
+        # Get the cartesian coordinates from the GPS coordinates
+        x, y = gps_to_cartesian(gps.latitude, gps.longitude)
+
+        # Print cartesian coordinates
+        self.get_logger().info(
+            "The translation from the origin (0, 0) to the gps location provided: %.3f %.3f"
+            % (x, y)
+        )
+
+
+def main(args=None):
+    rclpy.init(args=args)
+
+    gps_goal = GPSGoal()
+    rclpy.spin(gps_goal)
+
+    gps_goal.destroy_node()
+    rclpy.shutdown()
+
+
+if __name__ == "__main__":
+    main()
 ```
 
 ### Preparing your Solution
@@ -133,6 +221,11 @@ In another terminal:
 
 ```sh
 ros2 launch <your-package-name> task1_solution_launch.py
+```
+
+Mindful of your workspace name in the path below
+```
+ros2 run parc_robot_bringup <your_node> --ros-args --params-file ~/parc_ws/src/parc_robot_bringup/config/route1_world_coordinates.yaml
 ```
 
 ## Task Rules

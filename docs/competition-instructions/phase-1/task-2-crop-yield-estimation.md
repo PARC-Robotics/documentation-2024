@@ -16,7 +16,7 @@ The detection of weeds in fields is crucial for the growth of crops, as weeds ca
 In a new terminal, run the following launch file to bring up the robot in Gazebo and RViz:
 
 ```bash
-roslaunch parc_robot task2.launch
+ros2 launch parc_robot_bringup task2_launch.py
 ```
 
 You should see the display below in Gazebo and RViz respectively.
@@ -67,7 +67,7 @@ The robot can move at different speeds. The default speed is 0.1 m/s, but you ca
 
 ```bash
 ## 0.5 m/s
-roslaunch parc_robot task2.launch speed:=0.5
+ros2 launch parc_robot_bringup task2_launch.py speed:=0.5
 ```
 
 We recommend you play around with different speeds to ensure your solution is robust to different speeds.

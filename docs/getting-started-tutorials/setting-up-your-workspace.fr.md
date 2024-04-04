@@ -93,7 +93,7 @@ cp -R . ~/.gazebo/models
 ```
 
 !!! Note 
-    Le visualiseur 3D pour ROS, `RViz`, est automatiquement installé lorsque ROS 2 Humble a été installé sur votre PC lors du [didacticiel de configuration de votre PC](../getting-started-tutorials/setting-up-your-pc.fr.md).
+    Le visualiseur 3D pour ROS, [`RViz`](https://docs.ros.org/en/humble/Tutorials/Intermediate/RViz/RViz-User-Guide/RViz-User-Guide.html){target=_blank}, est automatiquement installé lorsque ROS 2 Humble a été installé sur votre PC lors du [didacticiel de configuration de votre PC](../getting-started-tutorials/setting-up-your-pc.fr.md).
 
 ### Étape 7: testez l'installation
 
