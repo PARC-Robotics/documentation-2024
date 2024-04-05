@@ -47,7 +47,8 @@ ros2 launch parc_robot_bringup task1_launch.py route:=route3
 
 * We recommend you play around with at least these three routes to ensure your solution is robust to different start locations.
 
-* To obtain the GPS goal location for this task, regardless of the route option, you can use a ROS parameter. Here is an example of how to obtain the goal location as a ROS parameter:
+* To obtain the GPS goal location for this task, regardless of the route option, you use ROS [parameters](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Parameters/Understanding-ROS2-Parameters.html){target=_blank} in a node. 
+    Here is an example of how to obtain the goal location as a ROS parameter:
 
 ```python
 #!/usr/bin/env python3
@@ -90,6 +91,55 @@ def main(args=None):
 
 if __name__ == "__main__":
     main()
+```
+
+The goal location parameter values are obtained from provided `.yaml` files, which vary depending on the route chosen, and these files are passed as arguments when the node is run as follows:
+
+```sh
+ros2 run <package_name> <executable_name> --ros-args --params-file <file_name>
+```
+
+For instance, choosing `route1` for the navigation task, the following sample command will be executed:
+
+```sh
+
+ros2 run <your-package-name> <your_node_executable> --ros-args --params-file ~/ros2_ws/src/parc_robot_bringup/config/route1_world_coordinates.yaml
+```
+
+!!! note
+    An [absolute file path](https://www.redhat.com/sysadmin/linux-path-absolute-relative){target=_blank} was used to locate the parameter file. A relative file path can also be used
+    if the command is called inside the `config` directory where the coordinate files are located. However, specifying the absolute file path is recommended to avoid errors
+
+The `route1_world_coordinates.yaml` file contents are as follows:
+
+```
+/**:
+  ros__parameters:
+
+    origin_latitude: 49.90000010022057
+    origin_longitude: 8.900000304717647
+    
+    goal_latitude: 49.89995550730833
+    goal_longitude: 8.900078504470644
+    
+    peg_a_latitude: 49.90003227516326
+    peg_a_longitude: 8.899956219604325
+
+    peg_b_latitude: 49.90000470401652
+    peg_b_longitude: 8.89994553616028
+  
+    peg_c_latitude: 49.89998381891777
+    peg_c_longitude: 8.899978564376983
+
+    peg_d_latitude: 49.90001471436836
+    peg_d_longitude: 8.899990252377338
+  
+    peg_e_latitude: 49.900026830087526
+    peg_e_longitude: 8.900024049357661
+
+    peg_f_latitude: 49.89999732019855
+    peg_f_longitude: 8.900012822919749
+
 ```
 
 Similarly, the GPS coordinates of the pegs on the farmland can be obtained as a parameter if you need it for localization. Here is an example of how to obtain the GPS coordinate of **peg A**:
@@ -224,8 +274,8 @@ ros2 launch <your-package-name> task1_solution_launch.py
 ```
 
 Mindful of your workspace name in the path below
-```
-ros2 run <your-package-name> <your_node> --ros-args --params-file ~/parc_ws/src/parc_robot_bringup/config/route1_world_coordinates.yaml
+```sh
+ros2 run <your-package-name> <your_node_executable> --ros-args --params-file ~/ros2_ws/src/parc_robot_bringup/config/route1_world_coordinates.yaml
 ```
 
 ## Task Rules

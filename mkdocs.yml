@@ -16,6 +16,7 @@ theme:
     - navigation.tabs
     - navigation.tabs.sticky
     - navigation.footer
+    - content.code.copy
   name: material
   palette: 
     # Palette toggle for automatic mode

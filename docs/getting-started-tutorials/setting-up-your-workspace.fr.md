@@ -118,8 +118,8 @@ Vous verrez un écran comme celui-ci :
 
 ![Graphique RQT](assets/rosgraph.png)
 
-Vous devez `publier`/écrire dans le `sujet` `/cmd_vel` pour déplacer le robot.
-Le guide suivant vous aidera à contrôler le robot à l'aide du clavier. Une fois que vous avez testé cela, vous pouvez suivre le guide [understanding-ros](../getting-started-with-ros) pour écrire un programme python pour contrôler le robot.
+Vous devez publier/écrire dans le `sujet` `/robot_base_controller/cmd_vel_unstamped` pour déplacer le robot.
+Le guide suivant vous aidera à contrôler le robot à l'aide du clavier. Une fois que vous avez testé cela, vous pouvez suivre le guide [commencer-avec-ros](../getting-started-tutorials/getting-started-with-ros.fr.md) pour écrire un programme python pour contrôler le robot.
 
 ### Étape 8: Contrôler le robot à l'aide du clavier
 

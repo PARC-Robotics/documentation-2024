@@ -118,8 +118,8 @@ You will see a screen like this:
 
 ![RQT Graph](assets/rosgraph.png)
 
-You need to `publish`/write to the `topic` `/cmd_vel` to move the robot.
-The following guide will help you control the robot using keyboard. Once you have tested that, you can follow the [understanding-ros](../getting-started-with-ros) guide to write a python program to control the robot.
+You need to publish/write to the `topic` `robot_base_controller/cmd_vel_unstamped` to move the robot.
+The following guide will help you control the robot using keyboard. Once you have tested that, you can follow the [getting-started-with-ros](../getting-started-tutorials/getting-started-with-ros.md) guide to write a python program to control the robot.
 
 ### Step 8: Controlling the robot using keyboard
 
