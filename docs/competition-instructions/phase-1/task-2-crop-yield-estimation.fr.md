@@ -5,7 +5,7 @@
 ## Description générale
 Selon les Nations Unies, la population mondiale devrait atteindre 8,5 milliards d’habitants d’ici 2030, l’Afrique étant le continent à la croissance la plus rapide. Cette croissance démographique projetée rend nécessaire l’urgence d’assurer la sécurité alimentaire. L'estimation précise des rendements des cultures est un aspect essentiel de la quête de la sécurité alimentaire et des robots agricoles autonomes sont utilisés dans cette entreprise.
 
-Pour cette tâche, le robot PARC est conduit de manière autonome à travers deux rangées de plants de tomates et les équipes doivent développer un logiciel permettant d'estimer le rendement du champ de tomates en utilisant les caméras RVB du robot.
+Pour cette tâche, le robot PARC est conduit de manière autonome à travers deux rangées de plants de tomates et les équipes doivent développer un logiciel permettant d'estimer le rendement du champ de tomates en utilisant les caméras RVB et la vision par ordinateur du robot.
 
 ## Lignes directrices sur les tâches
 

@@ -43,4 +43,4 @@ See figure below of expected directory structure:
 
 3. Create simple short video demos of your solutions for Task 1 and 2. This can be done by taking a screen recording of your solution running in Gazebo. Please ensure the videos are less than 200 MB in size.
 
-4. Zip your solution folder and upload the folder and the videos on the [solution submission form](https://forms.gle/GwE7Tzm9FpYzUVQX9)
+4. Zip your solution folder and upload the folder and the videos on the [solution submission form](https://forms.gle/GwE7Tzm9FpYzUVQX9).

@@ -43,4 +43,4 @@ Voir la figure ci-dessous de la structure du répertoire attendu:
 
 3. Créez de courtes démos vidéo simples de vos solutions pour les tâches 1 et 2. Cela peut être fait en prenant un enregistrement d'écran de votre solution en cours d'exécution dans Gazebo. Veuillez vous assurer que les vidéos ont une taille inférieure à 200 Mo.
 
-4. Compressez votre dossier de solution et téléchargez le dossier et les vidéos sur le [formulaire de soumission de solution](https://forms.gle/GwE7Tzm9FpYzUVQX9)
+4. Compressez votre dossier de solution et téléchargez le dossier et les vidéos sur le [formulaire de soumission de solution](https://forms.gle/GwE7Tzm9FpYzUVQX9).
