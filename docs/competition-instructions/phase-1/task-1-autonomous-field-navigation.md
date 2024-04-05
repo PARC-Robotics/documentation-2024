@@ -4,7 +4,7 @@
 
 ![task1_simulation](../assets/task1_sim.gif)
 
-Agricultural robots must be able to navigate through crops and farmland, which includes autonomously moving through lettuce crop rows on rough terrain. This task involves reaching the end of a row, making a turn, and returning in adjacent rows until the goal location is reached. Teams must develop software to guide the robot through a [pre-defined path](#exploring-multiple-routes) within the crop rows, from its starting position to the goal location.
+Agricultural robots must be able to navigate through crops and farmland, which includes autonomously moving through rows of tomato plants on rough terrain. This task involves reaching the end of a row, making a turn, and returning in adjacent rows until the goal location is reached. Teams must develop software to guide the robot through a [pre-defined path](#exploring-multiple-routes) within the crop rows, from its starting position to the goal location.
 
 ## Task Guidelines
 ### Launching the Task
@@ -14,7 +14,7 @@ In a new terminal, run the following launch file to bring up the robot in Gazebo
 ros2 launch parc_robot_bringup task1_launch.py
 ```
 
-You should see the display below in Gazebo and RViz respectively. To the right, there's the robot and to the left is the orange-red sphere which represents the goal location.
+You should see the display below in Gazebo and RViz respectively. To the right, there's the robot and to the left is the green circle which represents the goal location.
 
 === "Gazebo"
     ![task1_gazebo](../assets/task1_gazebo.jpg)
@@ -35,7 +35,7 @@ You should see the display below in Gazebo and RViz respectively. To the right, 
     ![task1_route3](../assets/Task1Route3.jpg)
 
 
-The default route is `route1`, but you can select the second and third route option (`route2` and `route3`) by passing the argument in the roslaunch command as follows:
+The default route is `route1`, but you can select the second and third route option (`route2` and `route3`) by passing the argument in the `ros2 launch` command as follows:
 
 ```sh
 ## route2
@@ -225,7 +225,7 @@ ros2 launch <your-package-name> task1_solution_launch.py
 
 Mindful of your workspace name in the path below
 ```
-ros2 run parc_robot_bringup <your_node> --ros-args --params-file ~/parc_ws/src/parc_robot_bringup/config/route1_world_coordinates.yaml
+ros2 run <your-package-name> <your_node> --ros-args --params-file ~/parc_ws/src/parc_robot_bringup/config/route1_world_coordinates.yaml
 ```
 
 ## Task Rules

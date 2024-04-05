@@ -1,13 +1,13 @@
 # How to Submit
 
-Teams are expected to develop their solutions (ROS packages) in a 'solutions' folder inside the `~/catkin_ws/src` directory. You may have one or more ROS packages in this folder for all your tasks. 
+Teams are expected to develop their solutions (ROS packages) in a 'solutions' folder inside the `~/ros2_ws/src` directory. You may have one or more ROS packages in this folder for all your tasks. 
 
 See figure below of expected directory structure:
 
 ```
-~/catkin_ws/src
+~/ros2_ws/src
 ├── CMakeLists.txt
-├── parc-engineers-league
+├── PARC2024-Engineers-League
 │   ├── parc-robot
 │   │   ├── .
 │   │   ├── .
@@ -39,7 +39,7 @@ See figure below of expected directory structure:
     * Task 1 - 2 description and run command(s)
     * Challenges faced
 
-2. Include all the packages (dependencies) used in your solution in your package's "package.xml" file ([see guide](http://wiki.ros.org/rosdep/Tutorials/How%20to%20add%20a%20system%20dependency))
+2. Include all the packages (dependencies) used in your solution in your package's "package.xml" file ([see guide](https://docs.ros.org/en/humble/Tutorials/Intermediate/Rosdep.html){target=_blank})
 
 3. Create simple short video demos of your solutions for Task 1 and 2. This can be done by taking a screen recording of your solution running in Gazebo. Please ensure the videos are less than 200 MB in size.
 
