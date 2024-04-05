@@ -3,10 +3,10 @@
 ## General Description
 
 ![task1_simulation](../assets/task1_sim.gif)
-
 Agricultural robots must be able to navigate through crops and farmland, which includes autonomously moving through rows of tomato plants on rough terrain. This task involves reaching the end of a row, making a turn, and returning in adjacent rows until the goal location is reached. Teams must develop software to guide the robot through a [pre-defined path](#exploring-multiple-routes) within the crop rows, from its starting position to the goal location.
 
 ## Task Guidelines
+
 ### Launching the Task
 In a new terminal, run the following launch file to bring up the robot in Gazebo and RViz:
 
@@ -103,12 +103,12 @@ For instance, choosing `route1` for the navigation task, the following sample co
 
 ```sh
 
-ros2 run <your-package-name> <your_node_executable> --ros-args --params-file ~/ros2_ws/src/parc_robot_bringup/config/route1_world_coordinates.yaml
+ros2 run parc_solutions task1_solution.py --ros-args --params-file ~/ros2_ws/src/parc_robot_bringup/config/route1_world_coordinates.yaml
 ```
 
 !!! note
     An [absolute file path](https://www.redhat.com/sysadmin/linux-path-absolute-relative){target=_blank} was used to locate the parameter file. A relative file path can also be used
-    if the command is called inside the `config` directory where the coordinate files are located. However, specifying the absolute file path is recommended to avoid errors
+    if the command is called inside the `config` directory where the coordinate files are located. However, specifying the absolute file path is recommended to avoid path errors.
 
 The `route1_world_coordinates.yaml` file contents are as follows:
 
@@ -198,7 +198,7 @@ Our module, **gps2cartesian**, provides a convenient way to convert GPS location
 ## Install the geographiclib 2.0 module for this code to work.
 ## To install geographiclib 2.0, copy the line below to your terminal.
 ## pip install geographiclib
-## Any of the PARC competition task must be running for this code to work.
+## Any of the PARC competition tasks must be running for this code to work.
 
 import rclpy
 from rclpy.node import Node
@@ -242,7 +242,7 @@ if __name__ == "__main__":
 ```
 
 ### Preparing your Solution
-* Your solution should be prepared as ROS packages to be saved in your solution folder. Create a launch file in your ROS package which runs ALL the code you need in your solution. Name this launch file: `task1_solution.launch`.
+* Your solution should be prepared as ROS packages to be saved in your solution folder. Create a node executable file in your ROS package which runs ALL the code you need in your solution. Name this node file: `task1_solution.py`.
 
 * Hence, your solution to Task 1 should be run by calling the following commands:
 
@@ -270,28 +270,23 @@ ros2 launch parc_robot_bringup task1_launch.py route:=route3
 In another terminal:
 
 ```sh
-ros2 launch <your-package-name> task1_solution_launch.py
-```
-
-Mindful of your workspace name in the path below
-```sh
-ros2 run <your-package-name> <your_node_executable> --ros-args --params-file ~/ros2_ws/src/parc_robot_bringup/config/route1_world_coordinates.yaml
+ros2 run <your-package-name> task1_solution.py --ros-args --params-file <absolute-path-to-route-world-coordinates-yaml-file>
 ```
 
 ## Task Rules
 
-* The time limit to complete the task is **6 minutes (360 seconds)**.
+* The time limit to complete the task is **7 minutes (420 seconds)**.
 
-* The task is ONLY complete when ANY part of the robot is inside the orange-red sphere (goal location marker) after following the pre-defined path as shown above.
+* The task is ONLY complete when ANY part of the robot is inside the green circle (goal location marker) after following the pre-defined path as shown above.
 
 !!! note "Note"
-    Ensure you DO NOT provide a solution with hard-coded positions for the robot to move to because in evaluation, the robot initial position would be randomized. 
+    Ensure you DO NOT provide a solution with hard-coded positions for the robot to move to because in evaluation, the robot's initial position would be randomized. 
 
 Scoring for this task would be based on the following criteria:
 
 | S/N      | Criteria/Metric | Description |
 | ----------- | ----------- | ------- |
 | 1  | **Pre-defined path** | Every route launched has a pre-defined path that **must** be followed as explained at [Route Description](#exploring-multiple-routes). |
-| 2  | **Crop avoidance**  | The robot should avoid going over or having contact with the crops. **(Less contact is better)** |
+| 2  | **Plant and peg avoidance**  | The robot should avoid making contact with the tomato plants and/or pegs. **(Less contact is better)** |
 | 3 | **Final travel distance to goal** | Shortest travel distance from robot (measured from robot center) through the crop rows to the goal which is calculated at the time limit [6 minutes] **(Smaller is better)**
 | 4  | **Completion time** | Time from launching the solution to task completion **(Smaller is better)** |

@@ -1,4 +1,4 @@
-# Tâche 2 : Estimation du rendement des cultures
+# Tâche 2: Estimation du rendement des cultures
 
 ![Task 2 Demo](../assets/task2.gif)
 

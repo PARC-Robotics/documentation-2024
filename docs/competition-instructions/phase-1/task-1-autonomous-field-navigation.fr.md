@@ -1,265 +1,290 @@
-# Tâche 1 : navigation autonome sur le terrain
+# Tâche 1: Navigation autonome sur le terrain
 
-## Description générale
+## Description Générale
 
 ![task1_simulation](../assets/task1_sim.gif)
 
-Les robots agricoles doivent être capables de naviguer dans les cultures et les terres agricoles, ce qui inclut de se déplacer de manière autonome dans les rangées de laitues sur un terrain accidenté. Cette tâche consiste à atteindre la fin d'une rangée, à effectuer un virage et à revenir dans les rangées adjacentes jusqu'à ce que l'emplacement du but soit atteint. Les équipes doivent développer un logiciel pour guider le robot à travers un [chemin prédéfini](#exploring-multiple-routes) dans les rangées de cultures, de sa position de départ à l'emplacement cible.
+Les robots agricoles doivent être capables de se déplacer à travers les cultures et les terres agricoles, ce qui implique de se déplacer de manière autonome à travers des rangées de plants de tomates sur un terrain accidenté. Cette tâche consiste à atteindre la fin d'une rangée, à faire un tour et à revenir dans les rangées adjacentes jusqu'à ce que l'emplacement de l'objectif soit atteint. Les équipes doivent développer un logiciel pour guider le robot sur un [chemin prédéfini](#explorer-plusieurs-itinéraires) dans les rangs de culture, depuis sa position de départ jusqu'à l'emplacement cible.
 
-## Consignes de tâche
-### Lancement de la tâche
-Dans un nouveau terminal, exécutez le fichier de lancement suivant pour faire apparaître le robot dans Gazebo et RViz :
+## Lignes directrices sur les tâches
+
+### Lancer la tâche
+Dans un nouveau terminal, exécutez le fichier de lancement suivant pour faire apparaître le robot dans Gazebo et RViz:
 
 ```sh
-roslaunch parc_robot task1.launch
+ros2 launch parc_robot_bringup task1_launch.py
 ```
 
-Vous devriez voir l'affichage ci-dessous dans Gazebo et RViz respectivement. A droite, il y a le robot et à gauche se trouve la sphère orange-rouge qui représente l'emplacement du but.
+Vous devriez voir l'affichage ci-dessous dans Gazebo et RViz respectivement. À droite, il y a le robot et à gauche se trouve le cercle vert qui représente l'emplacement du but.
 
-=== "Gazébo"
-     ![task1_gazebo](../assets/task1_gazebo.jpg)
+=== "Gazebo"
+    ![task1_gazebo](../assets/task1_gazebo.jpg)
 
 === "RViz"
-     ![task1_rviz](../assets/task1_rviz.png)
+    ![task1_rviz](../assets/task1_rviz.png)
 
-### Explorer plusieurs itinéraires
-* Nous avons préparé trois itinéraires prédéfinis que vous pouvez utiliser lorsque vous développez votre solution, chaque itinéraire ayant un emplacement d'objectif différent.
+### Explorer Plusieurs Itinéraires
+* Nous avons préparé trois itinéraires prédéfinis que vous pouvez utiliser lors du développement de votre solution, chaque itinéraire ayant un emplacement d'objectif différent.
 
-=== "Itinéraire 1"
-     ![task1_route1](../assets/Task1Route1.jpg)
+=== "Route 1"
+    ![task1_route1](../assets/Task1Route1.jpg)
 
-=== "Itinéraire 2"
-     ![task1_route2](../assets/Task1Route2.jpg)
+=== "Route 2"
+    ![task1_route2](../assets/Task1Route2.jpg)
 
-=== "Itinéraire 3"
-     ![task1_route3](../assets/Task1Route3.jpg)
+=== "Route 3"
+    ![task1_route3](../assets/Task1Route3.jpg)
 
-
-La route par défaut est `route1`, mais vous pouvez sélectionner la deuxième et la troisième option de route (`route2` et `route3`) en passant l'argument dans la commande roslaunch comme suit :
+La route par défaut est `route1`, mais vous pouvez sélectionner les deuxième et troisième options de route (`route2` et `route3`) en passant l'argument dans la commande de `ros2 launch` comme suit:
 
 ```sh
 ## route2
-roslaunch parc_robot task1.launch route:=route2
+ros2 launch parc_robot_bringup task1_launch.py route:=route2
 
 ## route3
-roslaunch parc_robot task1.launch route:=route3
+ros2 launch parc_robot_bringup task1_launch.py route:=route3
 ```
 
-* Nous vous recommandons de jouer avec au moins ces trois itinéraires pour vous assurer que votre solution est robuste pour différents emplacements de départ.
+* Nous vous recommandons de jouer avec au moins ces trois itinéraires pour vous assurer que votre solution est robuste aux différents emplacements de départ.
 
-* Pour obtenir l'emplacement cible GPS pour cette tâche, quelle que soit l'option d'itinéraire, vous pouvez utiliser un paramètre ROS. Voici un exemple de la façon d'obtenir l'emplacement du but en tant que paramètre ROS :
+* Pour obtenir l'emplacement de l'objectif GPS pour cette tâche, quelle que soit l'option d'itinéraire, vous utilisez les [paramètres](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Parameters/Understanding-ROS2-Parameters.html){target=_blank} ROS dans un nœud.
+   Voici un exemple de la façon d'obtenir l'emplacement de l'objectif en tant que paramètre ROS:
 
-=== "Python"
-    ```python
-    #!/usr/bin/env python
+```python
+#!/usr/bin/env python3
 
-    import rospy
+import rclpy
+from rclpy.node import Node
 
-    rospy.init_node('goal_parameter')
 
-    # Get goal parameter
-    goal = rospy.get_param('goal_location')
-    lat, lon = goal['latitude'], goal['longitude']
+class GoalLocation(Node):
+    def __init__(self):
+        super().__init__("goal_location")
 
-    # Print goal location
-    rospy.loginfo("goal location: %f %f %f", lat, lon)
+        # Déclarer les paramètres de latitude et de longitude de l'objectif
+        self.declare_parameter("goal_latitude", rclpy.Parameter.Type.DOUBLE)
+        self.declare_parameter("goal_longitude", rclpy.Parameter.Type.DOUBLE)
 
-    ```
-=== "C++"
-    ```cpp
-    #include <ros/ros.h>
-    #include "map"
+        # Obtenir l'emplacement de l'objectif à partir du fichier yaml de coordonnées mondiales
+        goal_lat = self.get_parameter("goal_latitude")
+        goal_long = self.get_parameter("goal_longitude")
 
-    int main(int argc, char** argv)
-    {
-      ros::init(argc, argv, "goal_parameter");
+        # Imprimer l'emplacement de l'objectif
+        self.get_logger().info(
+            "goal location: %f %f"
+            % (
+                goal_lat.value,
+                goal_long.value,
+            )
+        )
 
-      // Get goal parameter
-      std::map<std::string, double> goal;
-      ros::param::get("goal_location", goal);
 
-      // Print goal location
-      ROS_INFO("goal location: %f %f %f", goal["latitude"], goal["longitude"]);
+def main(args=None):
+    rclpy.init(args=args)
 
-      return 0;
-    }
-    ```
+    goal_location = GoalLocation()
+    rclpy.spin(goal_location)
 
-De même, les coordonnées GPS des piquets sur les terres agricoles peuvent être obtenues en tant que paramètre si vous en avez besoin pour la localisation. Voici un exemple de la façon d'obtenir les coordonnées GPS de **peg 01** :
+    goal_location.destroy_node()
+    rclpy.shutdown()
 
-=== "Python"
-    ```python
-    #!/usr/bin/env python
 
-    import rospy
+if __name__ == "__main__":
+    main()
+```
+Les valeurs des paramètres d'emplacement de l'objectif sont obtenues à partir des fichiers `.yaml` fournis, qui varient en fonction de l'itinéraire choisi, et ces fichiers sont transmis comme arguments lorsque le nœud est exécuté comme suit:
 
-    rospy.init_node('peg01_coordinate')
+```sh
+ros2 run <nom_du_paquet> <nom_de_l'exécutable> --ros-args --params-file <nom_de_fichier>
+```
 
-    # Get goal parameter
-    peg01 = rospy.get_param('peg_01')
-    lat, lon = peg01['latitude'], peg01['longitude']
+Par exemple, en choisissant `route1` pour la tâche de navigation, l'exemple de commande suivant sera exécuté:
 
-    # Print goal location
-    rospy.loginfo("peg01 coordinate: %f %f %f", lat, lon)
+```sh
 
-    ```
-=== "C++"
-    ```cpp
-    #include <ros/ros.h>
-    #include "map"
+ros2 run parc_solutions task1_solution.py --ros-args --params-file ~/ros2_ws/src/parc_robot_bringup/config/route1_world_coordinates.yaml
+```
 
-    int main(int argc, char** argv)
-    {
-      ros::init(argc, argv, "peg01_coordinate");
+!!! note
+    Un [chemin de fichier absolu](https://www.redhat.com/sysadmin/linux-path-absolute-relative){target=_blank} a été utilisé pour localiser le fichier de paramètres. Un chemin de fichier relatif peut également être utilisé si la commande est appelée dans le répertoire de `config` où se trouvent les fichiers de coordonnées. 
+    Cependant, il est recommandé de spécifier le chemin absolu du fichier pour éviter les erreurs de chemin.
 
-      // Get goal parameter
-      std::map<std::string, double> peg01;
-      ros::param::get("peg_01", peg01);
+Le contenu du fichier `route1_world_coordinates.yaml` est le suivant:
 
-      // Print goal location
-      ROS_INFO("peg01 coordinate: %f %f %f", peg01["latitude"], peg01["longitude"]);
+```
+/**:
+  ros__parameters:
 
-      return 0;
-    }
-    ```
+    origin_latitude: 49.90000010022057
+    origin_longitude: 8.900000304717647
+    
+    goal_latitude: 49.89995550730833
+    goal_longitude: 8.900078504470644
+    
+    peg_a_latitude: 49.90003227516326
+    peg_a_longitude: 8.899956219604325
 
-!!! avertissement
-     Veuillez **NE PAS** utiliser les coordonnées cartésiennes de l'emplacement du but et des piquets fournis par Gazebo ou le fichier mondial de quelque manière que ce soit. Vous serez pénalisé si vous le faites.
+    peg_b_latitude: 49.90000470401652
+    peg_b_longitude: 8.89994553616028
+  
+    peg_c_latitude: 49.89998381891777
+    peg_c_longitude: 8.899978564376983
+
+    peg_d_latitude: 49.90001471436836
+    peg_d_longitude: 8.899990252377338
+  
+    peg_e_latitude: 49.900026830087526
+    peg_e_longitude: 8.900024049357661
+
+    peg_f_latitude: 49.89999732019855
+    peg_f_longitude: 8.900012822919749
+
+```
+De même, les coordonnées GPS des piquets sur les terres agricoles peuvent être obtenues comme paramètre si vous en avez besoin pour la localisation. Voici un exemple de comment obtenir les coordonnées GPS du **piquet A**:
+
+```python
+#!/usr/bin/env python3
+
+import rclpy
+from rclpy.node import Node
+
+
+class PegALocation(Node):
+    def __init__(self):
+        super().__init__("peg_a_coordinates")
+
+        # Déclarer les paramètres de latitude et de longitude du piquet A
+        self.declare_parameter("peg_a_latitude", rclpy.Parameter.Type.DOUBLE)
+        self.declare_parameter("peg_a_longitude", rclpy.Parameter.Type.DOUBLE)
+
+        # Obtenir l'emplacement de la piquet A à partir du fichier yaml de coordonnées mondiales
+        peg_a_lat = self.get_parameter("peg_a_latitude")
+        peg_a_long = self.get_parameter("peg_a_longitude")
+
+        # Imprimer l'emplacement de la piquet A
+        self.get_logger().info(
+            "Peg A location: %f %f"
+            % (
+                peg_a_lat.value,
+                peg_a_long.value,
+            )
+        )
+
+
+def main(args=None):
+    rclpy.init(args=args)
+    
+    peg_a_coordinates = PegALocation()
+    rclpy.spin(peg_a_coordinates)
+
+    peg_a_coordinates.destroy_node()
+    rclpy.shutdown()
+
+
+if __name__ == "__main__":
+    main()
+```
+
+!!! warning
+    Veuillez **NE PAS** utiliser les coordonnées cartésiennes de l'emplacement du but et des piquets fournis par Gazebo ou le fichier mondial de quelque manière que ce soit. Vous serez pénalisé si vous le faites.
 
 ### Conversion du GPS en cartésien
-Notre module, **gps2cartesian**, fournit un moyen pratique de convertir les positions GPS en coordonnées cartésiennes x-y. En utilisant la coordonnée GPS de la position de départ du robot comme origine de référence (0, 0) en coordonnées cartésiennes, la fonction **gps_to_cartesian()** calcule les coordonnées cartésiennes de toute position GPS souhaitée passée en paramètre à la fonction . Voici un exemple d'utilisation du module pour obtenir la coordonnée cartésienne du robot par rapport à l'origine de référence (ou emplacement de départ) :
+Notre module, **gps2cartesian**, fournit un moyen pratique de convertir des emplacements GPS en coordonnées cartésiennes x-y. En utilisant l'origine mondiale du Gazebo comme origine de référence GPS (0, 0) en coordonnées cartésiennes, la fonction **gps_to_cartesian()** calcule les coordonnées cartésiennes de toute position GPS souhaitée transmise en paramètre à la fonction. Voici un exemple d'utilisation du module pour obtenir la coordonnée cartésienne du robot par rapport à l'origine de référence:
 
-=== "Python"
-    ```python
-    #!/usr/bin/env python3
-    ## Installez le module geographiclib 2.0 pour que ce code fonctionne.
-    ## Pour installer geographiclib 2.0, copiez la ligne ci-dessous sur votre terminal.
-    ## pip install geographiclib
-    ## L'une des tâches de compétition PARC doit être en cours d'exécution pour que ce code fonctionne.
+```python
+#!/usr/bin/env python3
+## Installez le module geographiclib 2.0 pour que ce code fonctionne.
+## Pour installer geographiclib 2.0, copiez la ligne ci-dessous sur votre terminal.
+## pip install geographiclib
+## L'une des tâches de compétition PARC doit être en cours d'exécution pour que ce code fonctionne.
 
-    import rospy
-    from sensor_msgs.msg import NavSatFix
-    from parc_robot.gps2cartesian import gps_to_cartesian
+import rclpy
+from rclpy.node import Node
+from sensor_msgs.msg import NavSatFix
+from parc_robot_bringup.gps2cartesian import gps_to_cartesian
 
-    rospy.init_node('gps_goal')
-    gps = rospy.wait_for_message('gps/fix', NavSatFix) # abonnez-vous une fois au sujet GPS.
-    x, y = gps_to_cartesian(gps.latitude, gps.longitude) # obtenir les coordonnées cartésiennes à partir des coordonnées GPS.
-    rospy.loginfo("La traduction de l'origine (0,0) à l'emplacement GPS fourni est {:.3f}, {:.3f} m.".format(x, y))
 
-    ```
-=== "C++"
-    ```cpp
-    /*
-      Ce code utilise la librairie geographiclib. Pour installer geographiclib pour C++.
-      Suivez les instructions ci-dessous :
-      1. Téléchargez geographiclib via ce lien -> https://sourceforge.net/projects/geographiclib/files/distrib-C++/GeographicLib-2.2.zip
-         Les étapes ci-dessous doivent être effectuées sur votre terminal.
-      2. Allez à l'endroit où vous avez téléchargé le fichier -> cd ~/Downloads
-      3. Décompressez le fichier -> unzip -q GeographicLib-2.2.zip
-      4. Entrez dans le répertoire -> cd GeographicLib-2.2
-      5. Créez un répertoire de construction séparé -> mkdir BUILD
-      6. Entrez dans le répertoire de construction -> cd BUILD
-      7. Exécutez cmake (ajoutez les deux points) -> cmake ..
-      8. Exécutez make -> make
+class GPSGoal(Node):
+    def __init__(self):
+        super().__init__("gps_goal")
 
-      /////////////////////////////////////////
-      Décommentez chaque ligne après le premier find_package() dans le fichier CMakeLists.txt du package parc_robot.
-      /////////////////////////////////////////
-      
-      Configurez CMakeLists.txt pour votre propre package ros (pas le package parc_robot) de cette façon :
-      
-      cmake_minimum_required(VERSION 3.0.2)
-      project(my_package_name)
-      
-      find_package(catkin REQUIRED COMPONENTS
-        roscpp
-        rospy
-        std_msgs
-        sensor_msgs
-        parc_robot # Add parc_robot package to packages ROS should find
-      )
-      
-      catkin_package()
-      
-      include_directories(
-        ${catkin_INCLUDE_DIRS}
-        ${parc_robot_INCLUDE_DIRS}
-      )
-      
-      ## Change my_node to whatever your node name is
-      add_executable(my_node src/my_node.cpp)
-      target_link_libraries(my_node 
-        ${catkin_LIBRARIES}
-        ${parc_robot_LIBRARIES}
-      )
+        # Abonnez-vous une fois au sujet GPS
+        self.gps_sub = self.create_subscription(
+            NavSatFix, "/gps/fix", self.gps_callback, 1
+        )
 
-    */
+    def gps_callback(self, gps):
 
-    #include "ros/ros.h"
-    #include "sensor_msgs/NavSatFix.h"
-    #include "parc_robot/gps2cartesian.h" // Ajouter l'api gps2cartesian fournie par PARC
+        # Récupérer les coordonnées cartésiennes à partir des coordonnées GPS
+        x, y = gps_to_cartesian(gps.latitude, gps.longitude)
 
-    int main(int argc, char **argv)
-    {
-      ros::init(argc, argv, "gps_to_cartesian");
-      ros::NodeHandle nh;
-      sensor_msgs::NavSatFixConstPtr msg = ros::topic::waitForMessage<sensor_msgs::NavSatFix>("gps/fix");
-      std::cout << msg->latitude << std::endl;
-      std::cout << msg->longitude << std::endl;
-      auto position = gps_to_cartesian(msg->latitude, msg->longitude);
-      ROS_INFO("La traduction de l'origine (0,0) à l'emplacement GPS fourni est: %f, %f", position.x, position.y);
+        # Imprimer les coordonnées cartésiennes
+        self.get_logger().info(
+            "La traduction de l'origine (0,0) à l'emplacement GPS fourni est: %.3f %.3f"
+            % (x, y)
+        )
 
-      return 0;
-    }
-    
-    ```
 
-### Préparation de votre solution
-* Votre solution doit être préparée sous forme de packages ROS à enregistrer dans votre dossier de solution. Créez un fichier de lancement dans votre package ROS qui exécute TOUT le code dont vous avez besoin dans votre solution. Nommez ce fichier de lancement : `task1_solution.launch`.
+def main(args=None):
+    rclpy.init(args=args)
 
-* Par conséquent, votre solution à la tâche 1 doit être exécutée en appelant les commandes suivantes :
+    gps_goal = GPSGoal()
+    rclpy.spin(gps_goal)
 
-Dans un terminal :
+    gps_goal.destroy_node()
+    rclpy.shutdown()
+
+
+if __name__ == "__main__":
+    main()
+```
+
+### Préparer votre solution
+* Votre solution doit être préparée sous forme de packages ROS à enregistrer dans votre dossier de solution. Créez un fichier exécutable de nœud dans votre package ROS qui exécute TOUT le code dont vous avez besoin dans votre solution. Nommez ce fichier de nœud: `task1_solution.py`.
+
+* Par conséquent, votre solution à la tâche 1 doit être exécutée en appelant les commandes suivantes:
+
+Dans un terminal:
 
 ```sh
-roslaunch parc_robot task1.launch
+ros2 launch parc_robot_bringup task1_launch.py
+```
+
+Ou 
+
+```sh
+ros2 launch parc_robot_bringup task1_launch.py route:=route2
 ```
 
 Ou
 
 ```sh
-roslaunch parc_robot task1.launch route:=route2
+ros2 launch parc_robot_bringup task1_launch.py route:=route3
 ```
 
-Ou
+!!! note "Note"
+    Veuillez attendre que les modèles du monde et du robot aient fini d'apparaître. Ce processus peut prendre plus de temps que d'habitude, surtout lors de la première exécution du programme.
+
+Dans un autre terminal:
 
 ```sh
-roslaunch parc_robot task1.launch route:=route3
+ros2 run <le-nom-de-votre-colis> task1_solution.py --ros-args --params-file <chemin-absolu-vers-la-route-coordonnées-mondiales-fichier-yaml>
 ```
 
-!!! remarque "Remarque"
-     Veuillez patienter jusqu'à ce que les modèles de monde et de robot aient fini de se reproduire. Ce processus peut prendre plus de temps que d'habitude, en particulier lors de la première exécution du programme.
+## Règles de tâche
 
-Dans un autre terminal :
+* Le délai pour terminer la tâche est de **7 minutes (420 secondes)**.
 
-```sh
-roslaunch <nom-de-votre-paquet> task1_solution.launch
-```
+* La tâche est terminée UNIQUEMENT lorsqu'UNE partie du robot se trouve à l'intérieur du cercle vert (marqueur d'emplacement de l'objectif) après avoir suivi le chemin prédéfini comme indiqué ci-dessus.
 
-## Règles de tâche
+!!! note "Note"
+    Assurez-vous de NE PAS fournir de solution avec des positions codées en dur vers lesquelles le robot doit se déplacer, car lors de l'évaluation, la position initiale du robot serait randomisée.
 
-* Le temps limite pour terminer la tâche est de **4 minutes (240 secondes)**.
+La notation de cette tâche serait basée sur les critères suivants:
 
-* La tâche est UNIQUEMENT terminée lorsque N'IMPORTE QUELLE partie du robot se trouve à l'intérieur de la sphère orange-rouge (marqueur d'emplacement d'objectif) après avoir suivi le chemin prédéfini comme indiqué ci-dessus.
-
-!!! remarque "Remarque"
-     Assurez-vous de NE PAS fournir de solution avec des positions codées en dur vers lesquelles le robot doit se déplacer, car lors de l'évaluation, la position initiale du robot serait aléatoire.
-
-La notation de cette tâche serait basée sur les critères suivants :
-
-| S/N | Critère/Métrique | Descriptif |
+| S/N      | Critère/Métrique | Descriptif|
 | ----------- | ----------- | ------- |
-| 1 | **Chemin prédéfini** | Chaque route lancée a un chemin prédéfini qui **doit** être suivi comme expliqué dans [Description de la route](#exploring-multiple-routes). |
-| 2 | **Évitement des cultures** | Le robot doit éviter de passer ou d'avoir un contact avec les cultures. **(Moins de contact, c'est mieux)** |
-| 3 | **Distance finale parcourue jusqu'au but** | Distance de déplacement la plus courte du robot (mesurée à partir du centre du robot) à travers les rangées de cultures jusqu'à l'objectif, calculée à la limite de temps [4 minutes] **(Plus petit est préférable)**
-| 4 | **Délai de réalisation** | Délai entre le lancement de la solution et l'achèvement de la tâche **(Plus petit est préférable)** |
+| 1  | **Chemin prédéfini** | Chaque route lancée a un chemin prédéfini qui **doit** être suivi comme expliqué dans [Description de la route](#explorer-plusieurs-itinéraires). |
+| 2  | **Évitement des plantes et des piquets**  | Le robot doit éviter tout contact avec les plants de tomates et/ou les piquets. **(Moins de contact, c’est mieux)** |
+| 3 | **Distance finale parcourue jusqu’au but** | Distance de déplacement la plus courte du robot (mesurée à partir du centre du robot) à travers les rangées de cultures jusqu’à l’objectif, calculée à la limite de temps [7 minutes] **(Plus petit est préférable)**
+| 4  | **Délai de réalisation** |  	Délai entre le lancement de la solution et l’achèvement de la tâche **(Plus petit est préférable)** |
