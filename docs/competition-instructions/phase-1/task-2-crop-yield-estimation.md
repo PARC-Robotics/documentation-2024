@@ -38,9 +38,9 @@ The robot starts moving once the nodes called by the launch file have been succe
 
 To publish the number of fruits in a chosen world, you should use the topic `/parc_robot/crop_yield` that has the message type `/std_msgs/String`.
 
-
 A new topic called `/parc_robot/robot_status` has been added to publish the current status of the robot. The message type for this topic is `/std_msgs/String`, which indicates whether the robot has started moving along the route or has finished the designated route. The robot status has two possible values: **"started"** and **"finished"**.
 
+We recommend you play around with the different tomato field worlds to ensure your solution is robust to different worlds.
 
 ### Moving at different speeds
 
@@ -51,20 +51,13 @@ The robot can move at different speeds. The default speed is 0.1 m/s, but you ca
 ros2 launch parc_robot_bringup task2_launch.py speed:=0.5
 ```
 
-We recommend you play around with different speeds to ensure your solution is robust to different speeds.
+Likewise, we recommend you play around with different speeds to ensure your solution is robust to different speeds.
 
 ### Task Expectations
 
-The objective of the task is to identify the number of tomato fruits as the robot moves between the two rows of tomato plants. in a world 
-
-
-Each world will be tested
-
-drive the robot through a row of crops to identify and communicate the locations of any weeds in the field. When the robot reaches the end of the row, it will come to a stop, and you should publish the weed locations to the `/parc_robot/weed_detection` topic.
+The objective of the task is to count the number of red tomato fruits as the robot moves between the two rows of tomato plants. When the robot reaches the end of the row, it will come to a stop, and you should publish the total number of red tomato fruits to the `/parc_robot/crop_yield` topic.
 
 It's important to note that real-time publication of counted tomato fruits is not necessary. You can publish the number of tomato fruits after the robot has stopped moving, which you can monitor through the `/parc_robot/robot_status` topic.
-
-They need to count for the three worlds
 
 ### Preparing your Solution
 * Your solution should be prepared as ROS packages to be saved in your solution folder. Create a node executable file in your ROS package which runs ALL the code you need in your solution. Name this node file: `task2_solution.py`.
@@ -95,7 +88,7 @@ ros2 launch parc_robot_bringup task2_launch.py world:=world3
 In another terminal:
 
 ```sh
-ros2 run <your-package-name> task2_solution.py --ros-args --params-file <absolute-path-to-route-world-coordinates-yaml-file>
+ros2 run <your-package-name> task2_solution.py 
 ```
 
 ## Task Rules
@@ -110,10 +103,7 @@ Your solution will be evaluated based on the following criteria:
 
 | S/N | Criteria/Metric | Description |
 | ----------- | ----------- | ------- |
-| 1 | Accuracy | Accuracy is based on how many weeds are correctly detected, within 0.1m of their actual location. Incorrect detections or missed weeds reduce accuracy. Multiple detections within 0.1m of the same actual location count as one accurate detection. |
-| 2 | Robustness | We measure the robustness of your solution by evaluating its accuracy across various routes and speeds. The accuracy is given a weight and averaged across different speeds and all three routes to determine the overall robustness of your solution. |
+| 1 | Accuracy | Accuracy is based on how many red tomato fruits are correctly counted, within ±2 of the actual number of tomato fruits. Incorrect detections or missed red tomato fruits reduce accuracy. Your solution will be tested against three newly created tomato field worlds. |
+| 2 | Robustness | We measure the robustness of your solution by evaluating its accuracy across three new worlds and at different speeds. The accuracy is given a weight and averaged across different speeds and all three routes to determine the overall robustness of your solution. |
 
-
-!!! hint "Computing the X and Y values"
-    To get the X and Y coordinates of the weeds, you might first get the position of weed in the robot frame, and then transform the position to the Gazbeo world frame. You can find more resources on frame transformations [here](/documentation-2023/resources-and-support/additional-transform-resources/).
 
