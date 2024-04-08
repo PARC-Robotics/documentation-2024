@@ -19,16 +19,19 @@ ros2 launch parc_robot_bringup task2_launch.py
 
 Vous devriez voir l'affichage ci-dessous dans Gazebo et RViz respectivement.
 
-![task2_world](../assets/gazebo_on_start.png)
-![task2_rviz](../assets/task2rviz.png)
+=== "Gazebo"
+    ![task2_world](../assets/gazebo_on_start.png)
+
+=== "RViz"
+    ![task2_rviz](../assets/task2rviz.png)
 
 Il existe trois mondes pour cette tâche, chaque monde variant en termes de nombre de plants de tomates produisant des fruits. Le monde par défaut est `world1` et similaire à la tâche 1, les options du deuxième et du troisième monde, `world2` et `world3`, peuvent être sélectionnées en passant l'argument dans la commande de `ros2 launch` ci-dessous:
 
 ```bash
-# world2
+## world2
 ros2 launch parc_robot_bringup task2_launch.py world:=world2
 
-# world3
+## world3
 ros2 launch parc_robot_bringup task2_launch.py world:=world3
 ```
 

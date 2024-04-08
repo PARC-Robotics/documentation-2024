@@ -21,26 +21,90 @@ ros2 launch parc_robot_bringup task2_launch.py
 
 You should see the display below in Gazebo and RViz respectively.
 
-![task2_world](../assets/gazebo_on_start.png)
-![task2_rviz](../assets/task2rviz.png)
+=== "Gazebo"
+    ![task2_world](../assets/gazebo_on_start.png)
+
+=== "RViz"
+    ![task2_rviz](../assets/task2rviz.png)
 
 There are three worlds for this task, with each world varying in the number of fruit producing tomato plants. The default world is `world1` and similar to task 1, the second and third world options, `world2` and `world3`, can be selected by passing the argument in the `ros2 launch` command below:
 
 ```bash
-# world2
+## world2
 ros2 launch parc_robot_bringup task2_launch.py world:=world2
 
-# world3
+## world3
 ros2 launch parc_robot_bringup task2_launch.py world:=world3
 ```
 
 The robot starts moving once the nodes called by the launch file have been successfully loaded.
 
-To publish the number of fruits in a chosen world, you should use the topic `/parc_robot/crop_yield` that has the message type `/std_msgs/String`.
+To publish the number of fruits in a chosen world, you should use the topic `/parc_robot/crop_yield` that has uses the custom message `parc_robot_interfaces/msg/CropYield` from the 
+`parc_robot_interfaces` package. 
+
+The code snippet below shows how a simple publisher to the topic and custom message is created and used: 
+
+```python
+#!/usr/bin/env python3
+
+import rclpy
+from rclpy.node import Node
+from parc_robot_interfaces.msg import CropYield
+
+
+class YieldTest(Node):
+    def __init__(self):
+        super().__init__("yield_test")
+        self.yield_pub = self.create_publisher(CropYield, "/parc_robot/crop_yield", 1)
+        timer_period = 0.5  # seconds
+        self.timer = self.create_timer(timer_period, self.timer_callback)
+        self.i = 1
+
+    def timer_callback(self):
+        msg = CropYield()
+
+        # Assign counter variable i to crop yield data
+        msg.data = self.i
+
+        # Publish message
+        self.yield_pub.publish(msg)
+
+        # Log information to the console
+        self.get_logger().info("Current crop yield is: %d" % msg.data)
+
+        # Increment counter variable
+        self.i += 1
+
+
+def main(args=None):
+    rclpy.init(args=args)
+
+    yield_test = YieldTest()
+    rclpy.spin(yield_test)
+
+    yield_test.destroy_node()
+    rclpy.shutdown()
+
+
+if __name__ == "__main__":
+    main()
+```
+
+This line imports the message in the node:
+
+```python
+from parc_robot_interfaces.msg import CropYield
+```
 
 A new topic called `/parc_robot/robot_status` has been added to publish the current status of the robot. The message type for this topic is `/std_msgs/String`, which indicates whether the robot has started moving along the route or has finished the designated route. The robot status has two possible values: **"started"** and **"finished"**.
 
 We recommend you play around with the different tomato field worlds to ensure your solution is robust to different worlds.
+
+### Installing OpenCV
+
+```python
+sudo apt install python3-opencv
+```
 
 ### Moving at different speeds
 
@@ -51,7 +115,7 @@ The robot can move at different speeds. The default speed is 0.1 m/s, but you ca
 ros2 launch parc_robot_bringup task2_launch.py speed:=0.5
 ```
 
-Likewise, we recommend you play around with different speeds to ensure your solution is robust to different speeds.
+Likewise, we recommend you play around with this range of speeds: `[0.25, 0.5, 0.75, 1.0, 1.25]`, to ensure your solution is robust to different speeds.
 
 ### Task Expectations
 
@@ -60,7 +124,14 @@ The objective of the task is to count the number of red tomato fruits as the rob
 It's important to note that real-time publication of counted tomato fruits is not necessary. You can publish the number of tomato fruits after the robot has stopped moving, which you can monitor through the `/parc_robot/robot_status` topic.
 
 ### Preparing your Solution
+
 * Your solution should be prepared as ROS packages to be saved in your solution folder. Create a node executable file in your ROS package which runs ALL the code you need in your solution. Name this node file: `task2_solution.py`.
+
+* In order to use the `CropYield` custom message in your solution, the `parc_robot_interfaces` dependency is added in the `package.xml` file of your solution package:
+
+    ```xml
+    <depend>parc_robot_interfaces</depend>
+    ``` 
 
 * Hence, your solution to Task 2 should be run by calling the following commands:
 
@@ -104,6 +175,6 @@ Your solution will be evaluated based on the following criteria:
 | S/N | Criteria/Metric | Description |
 | ----------- | ----------- | ------- |
 | 1 | Accuracy | Accuracy is based on how many red tomato fruits are correctly counted, within ±2 of the actual number of tomato fruits. Incorrect detections or missed red tomato fruits reduce accuracy. Your solution will be tested against three newly created tomato field worlds. |
-| 2 | Robustness | We measure the robustness of your solution by evaluating its accuracy across three new worlds and at different speeds. The accuracy is given a weight and averaged across different speeds and all three routes to determine the overall robustness of your solution. |
+| 2 | Robustness | We measure the robustness of your solution by evaluating its accuracy across three new worlds and at different speeds. The accuracy is given a weight and averaged across different speeds and all three worlds to determine the overall robustness of your solution. |
 
 

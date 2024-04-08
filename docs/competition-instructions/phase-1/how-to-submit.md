@@ -6,34 +6,44 @@ See figure below of expected directory structure:
 
 ```
 ~/ros2_ws/src
-├── CMakeLists.txt
-├── PARC2024-Engineers-League
-│   ├── parc-robot
-│   │   ├── .
-│   │   ├── .
-│   │   ├── CMakeLists.txt
-│   │   └── package.xml
+.
+├── parc_robot
+│   ├── CMakeLists.txt
+│   └── package.xml
+├── parc_robot_bringup
 │   ├── .
-│   └── .
+│   ├── .
+│   ├── CMakeLists.txt
+│   └── package.xml
+├── parc_robot_description
+│   ├── .
+│   ├── .
+│   ├── CMakeLists.txt
+│   └── package.xml
+├── parc_robot_interfaces
+│   ├── msg
+│   │   └── CropYield.msg
+│   ├── CMakeLists.txt
+│   └── package.xml
+├── .
+├── .
 └── <YOUR_SOLUTION_FOLDER>        # Zip this folder and submit
     ├── <your_ros_package1>
     │   ├── .
     │   ├── .
-    │   ├── CMakeLists.txt
+    │   ├── setup.py
     │   └── package.xml
     ├── <your_ros_package2>
     │   ├── .
     │   ├── .
-    │   ├── CMakeLists.txt
+    │   ├── setup.py
     │   └── package.xml
-    ├── .
-    ├── .
     ├── .
     ├── .
     └── README.md                   # Required
 ```
 
-1. Prepare a README.md file following this format and store in solution folder (see [example](https://github.com/PARC-Robotics/PARC-Engineers-League/blob/master/resources/sample-submission-readme.md)):
+1. Prepare a README.md file following this format and store in solution folder (see [example](https://github.com/PARC-Robotics/PARC2024-Engineers-League/blob/main/resources/sample-submission-readme.md)):
     * Introduction Section: Briefly describe your approach
     * Dependencies: List all the packages installed and used in your solution
     * Task 1 - 2 description and run command(s)

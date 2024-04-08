@@ -275,7 +275,7 @@ ros2 run <your-package-name> task1_solution.py --ros-args --params-file <absolut
 
 ## Task Rules
 
-* The time limit to complete the task is **7 minutes (420 seconds)**.
+* The time limit to complete the task is **8 minutes (480 seconds)**.
 
 * The task is ONLY complete when ANY part of the robot is inside the green circle (goal location marker) after following the pre-defined path as shown above.
 
@@ -288,5 +288,5 @@ Scoring for this task would be based on the following criteria:
 | ----------- | ----------- | ------- |
 | 1  | **Pre-defined path** | Every route launched has a pre-defined path that **must** be followed as explained at [Route Description](#exploring-multiple-routes). |
 | 2  | **Plant and peg avoidance**  | The robot should avoid making contact with the tomato plants and/or pegs. **(Less contact is better)** |
-| 3 | **Final travel distance to goal** | Shortest travel distance from robot (measured from robot center) through the crop rows to the goal which is calculated at the time limit [6 minutes] **(Smaller is better)**
+| 3 | **Final travel distance to goal** | Shortest travel distance from robot (measured from robot center) through the crop rows to the goal which is calculated at the time limit [8 minutes] **(Smaller is better)**
 | 4  | **Completion time** | Time from launching the solution to task completion **(Smaller is better)** |

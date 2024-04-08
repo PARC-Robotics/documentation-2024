@@ -27,7 +27,11 @@ git clone https://github.com/PARC-Robotics/PARC2024-Engineers-League.git .
 
 ### Step 3: Install dependencies
 
-In the same terminal (or in a new one), copy and paste the following:
+The cloned project repository contains ROS packages that require certain dependencies before they can be used. These dependencies are specified in the respective `package.xml` file
+of each package and are installed using [rosdep](https://docs.ros.org/en/humble/Tutorials/Intermediate/Rosdep.html){taget=_blank} a command-line utility for identifying and installing 
+dependencies to build or install a package. 
+
+To install the project dependencies, un the same terminal (or in a new one), copy and paste the following:
 ```sh
 cd ~/ros2_ws
 sudo rosdep init

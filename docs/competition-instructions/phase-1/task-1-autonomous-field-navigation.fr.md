@@ -273,7 +273,7 @@ ros2 run <le-nom-de-votre-colis> task1_solution.py --ros-args --params-file <che
 
 ## Règles de tâche
 
-* Le délai pour terminer la tâche est de **7 minutes (420 secondes)**.
+* Le délai pour terminer la tâche est de **8 minutes (480 secondes)**.
 
 * La tâche est terminée UNIQUEMENT lorsqu'UNE partie du robot se trouve à l'intérieur du cercle vert (marqueur d'emplacement de l'objectif) après avoir suivi le chemin prédéfini comme indiqué ci-dessus.
 
@@ -286,5 +286,5 @@ La notation de cette tâche serait basée sur les critères suivants:
 | ----------- | ----------- | ------- |
 | 1  | **Chemin prédéfini** | Chaque route lancée a un chemin prédéfini qui **doit** être suivi comme expliqué dans [Description de la route](#explorer-plusieurs-itinéraires). |
 | 2  | **Évitement des plantes et des piquets**  | Le robot doit éviter tout contact avec les plants de tomates et/ou les piquets. **(Moins de contact, c’est mieux)** |
-| 3 | **Distance finale parcourue jusqu’au but** | Distance de déplacement la plus courte du robot (mesurée à partir du centre du robot) à travers les rangées de cultures jusqu’à l’objectif, calculée à la limite de temps [7 minutes] **(Plus petit est préférable)**
+| 3 | **Distance finale parcourue jusqu’au but** | Distance de déplacement la plus courte du robot (mesurée à partir du centre du robot) à travers les rangées de cultures jusqu’à l’objectif, calculée à la limite de temps [8 minutes] **(Plus petit est préférable)**
 | 4  | **Délai de réalisation** |  	Délai entre le lancement de la solution et l’achèvement de la tâche **(Plus petit est préférable)** |
