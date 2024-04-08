@@ -63,7 +63,7 @@ class YieldTest(Node):
     def timer_callback(self):
         msg = CropYield()
 
-        # Assign counter variable i to crop yield data
+        # Assign counter variable i to crop yield message data
         msg.data = self.i
 
         # Publish message
@@ -96,19 +96,21 @@ This line imports the message in the node:
 from parc_robot_interfaces.msg import CropYield
 ```
 
-A new topic called `/parc_robot/robot_status` has been added to publish the current status of the robot. The message type for this topic is `/std_msgs/String`, which indicates whether the robot has started moving along the route or has finished the designated route. The robot status has two possible values: **"started"** and **"finished"**.
+A new topic called `/parc_robot/robot_status` has been added to publish the current status of the robot. The message type for this topic is `std_msgs/String`, which indicates whether the robot has started moving along the route or has finished the designated route. The robot status has two possible values: **"started"** and **"finished"**.
 
 We recommend you play around with the different tomato field worlds to ensure your solution is robust to different worlds.
 
-### Installing OpenCV
+### Install OpenCV
 
-```python
+For the task, it is recommended to use [OpenCV](https://opencv.org/){target=_blank} for computer vision. This package can be installed on by executing this command in a terminal window:
+
+```bash
 sudo apt install python3-opencv
 ```
 
 ### Moving at different speeds
 
-The robot can move at different speeds. The default speed is 0.1 m/s, but you can change the speed by passing the argument in the `ros2 launch` command as follows:
+The robot can move at different speeds. The default speed is `0.1 m/s`, but you can change the speed by passing the argument in the `ros2 launch` command as follows:
 
 ```bash
 ## 0.5 m/s
@@ -135,32 +137,32 @@ It's important to note that real-time publication of counted tomato fruits is no
 
 * Hence, your solution to Task 2 should be run by calling the following commands:
 
-In one terminal:
+    In one terminal:
 
-```sh
-ros2 launch parc_robot_bringup task2_launch.py
-```
+    ```sh
+    ros2 launch parc_robot_bringup task2_launch.py
+    ```
 
-Or 
+    Or 
 
-```sh
-ros2 launch parc_robot_bringup task2_launch.py world:=world2
-```
+    ```sh
+    ros2 launch parc_robot_bringup task2_launch.py world:=world2
+    ```
 
-Or
+    Or
 
-```sh
-ros2 launch parc_robot_bringup task2_launch.py world:=world3
-```
+    ```sh
+    ros2 launch parc_robot_bringup task2_launch.py world:=world3
+    ```
 
-!!! note "Note"
-    Please wait until both the world and robot models have finished spawning. This process may take longer than usual, especially when running the program for the first time.
+    !!! note "Note"
+        Please wait until both the world and robot models have finished spawning. This process may take longer than usual, especially when running the program for the first time.
 
-In another terminal:
+    In another terminal:
 
-```sh
-ros2 run <your-package-name> task2_solution.py 
-```
+    ```sh
+    ros2 run <your-package-name> task2_solution.py 
+    ```
 
 ## Task Rules
 
@@ -174,7 +176,7 @@ Your solution will be evaluated based on the following criteria:
 
 | S/N | Criteria/Metric | Description |
 | ----------- | ----------- | ------- |
-| 1 | Accuracy | Accuracy is based on how many red tomato fruits are correctly counted, within ±2 of the actual number of tomato fruits. Incorrect detections or missed red tomato fruits reduce accuracy. Your solution will be tested against three newly created tomato field worlds. |
-| 2 | Robustness | We measure the robustness of your solution by evaluating its accuracy across three new worlds and at different speeds. The accuracy is given a weight and averaged across different speeds and all three worlds to determine the overall robustness of your solution. |
+| 1 | **Accuracy** | Accuracy is based on how many red tomato fruits are correctly counted, within ±2 of the actual number of tomato fruits. Incorrect detections or missed red tomato fruits reduce accuracy. Your solution will be tested against three newly created tomato field worlds. |
+| 2 | **Robustness** | We measure the robustness of your solution by evaluating its accuracy across three new worlds and at different speeds. The accuracy is given a weight and averaged across different speeds and all three worlds to determine the overall robustness of your solution. |
 
 

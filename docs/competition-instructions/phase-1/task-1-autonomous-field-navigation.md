@@ -282,6 +282,8 @@ ros2 run <your-package-name> task1_solution.py --ros-args --params-file <absolut
 !!! note "Note"
     Ensure you DO NOT provide a solution with hard-coded positions for the robot to move to because in evaluation, the robot's initial position would be randomized. 
 
+## Task Evaluation
+
 Scoring for this task would be based on the following criteria:
 
 | S/N      | Criteria/Metric | Description |

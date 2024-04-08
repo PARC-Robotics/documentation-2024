@@ -239,7 +239,7 @@ if __name__ == "__main__":
     main()
 ```
 
-### Préparer votre solution
+### Préparer votre Solution
 * Votre solution doit être préparée sous forme de packages ROS à enregistrer dans votre dossier de solution. Créez un fichier exécutable de nœud dans votre package ROS qui exécute TOUT le code dont vous avez besoin dans votre solution. Nommez ce fichier de nœud: `task1_solution.py`.
 
 * Par conséquent, votre solution à la tâche 1 doit être exécutée en appelant les commandes suivantes:
@@ -271,7 +271,7 @@ Dans un autre terminal:
 ros2 run <le-nom-de-votre-colis> task1_solution.py --ros-args --params-file <chemin-absolu-vers-la-route-coordonnées-mondiales-fichier-yaml>
 ```
 
-## Règles de tâche
+## Règles de Tâche
 
 * Le délai pour terminer la tâche est de **8 minutes (480 secondes)**.
 
@@ -279,6 +279,8 @@ ros2 run <le-nom-de-votre-colis> task1_solution.py --ros-args --params-file <che
 
 !!! note "Note"
     Assurez-vous de NE PAS fournir de solution avec des positions codées en dur vers lesquelles le robot doit se déplacer, car lors de l'évaluation, la position initiale du robot serait randomisée.
+
+## Évaluation des Tâches
 
 La notation de cette tâche serait basée sur les critères suivants:
 
