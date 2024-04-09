@@ -32,6 +32,6 @@ Teams are required to complete and upload their solutions on or before the Phase
 This phase will take place in-person in Senegal in July 2024. Teams will get the opportunity to integrate their software physical **PARC AgRobot** system and compete in a partner farm for the final competition.
 
 
-## Prizes & Awards
+## Certificates & Awards
 
-Top performing teams in the final competition will receive prizes and mentoring opportunities from our sponsors. All participants will receive a certificate of participation.
+All participants who qualify to the real world phase will receive a certificate of participation.

@@ -9,7 +9,7 @@ A: The competition is open to students from universities and technical institute
 A: You can only participate as a team. Each team must have at least 2 members and a maximum of 5 members.
 
 **Q: Do I need to have prior experience in robotics or programming to participate?**  
-A: While experience with ROS might not be essential to get started, programming experience is necessary. You will need to be familiar with C++ or Python programming languages.
+A: While experience with ROS might not be essential to get started, programming experience is necessary. You will need to be familiar with Python programming languages.
 
 **Q: Is there a registration fee for the competition?**  
 A: No, there is no registration fee for the competition.
@@ -56,4 +56,4 @@ A: Your entry will be judged based on the task rubrics, the performance of your 
 A: The competition will be judged by a panel of experts in robotics and computer science.
 
 **Q: When will the winners be announced?**  
-A: The winners will be announced on the competition's website and social media channels on the date specified in the [`Important Dates`](/competition-overview/important-dates/) section.
+A: The winners will be announced on the competition's website and social media channels on the date specified in the [`Important Dates`](/documentation-2024/introduction/important-dates/) section.

@@ -27,4 +27,4 @@ Cette phase aura lieu en personne au Sénégal en Juillet 2024. Les équipes aur
 
 ## Prises et récompenses
 
-Les équipes les plus performantes de la compétition finale recevront des prix et des opportunités de mentorat de nos sponsors. Tous les participants recevront un certificat de participation.
+Tous les participants qualifiés pour la phase du monde réel recevront un certificat de participation.

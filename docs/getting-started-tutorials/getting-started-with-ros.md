@@ -205,7 +205,7 @@ Run the following commands to compile the code,
 
 ```shell
 cd ~/ros2_ws
-colcon_build
+colcon build
 ```
 
 To see it working, first run the robot in simulation by running the following command in one terminal,

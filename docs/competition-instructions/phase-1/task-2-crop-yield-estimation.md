@@ -113,11 +113,11 @@ sudo apt install python3-opencv
 The robot can move at different speeds. The default speed is `0.1 m/s`, but you can change the speed by passing the argument in the `ros2 launch` command as follows:
 
 ```bash
-## 0.5 m/s
-ros2 launch parc_robot_bringup task2_launch.py speed:=0.5
+## 0.25 m/s
+ros2 launch parc_robot_bringup task2_launch.py speed:=0.25
 ```
 
-Likewise, we recommend you play around with this range of speeds: `[0.25, 0.5, 0.75, 1.0, 1.25]`, to ensure your solution is robust to different speeds.
+Likewise, we recommend you play around with this range of speeds: `[0.25, 0.5, 0.75, 1.0]`, to ensure your solution is robust to different speeds.
 
 ### Task Expectations
 

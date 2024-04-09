@@ -198,7 +198,7 @@ Exécutez les commandes suivantes pour compiler le code,
 
 ```shell
 cd ~/ros2_ws
-colcon_build
+colcon build
 ```
 
 Pour le voir fonctionner, exécutez d'abord le robot en simulation en exécutant la commande suivante dans un terminal,

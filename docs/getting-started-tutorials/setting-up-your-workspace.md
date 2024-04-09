@@ -104,7 +104,7 @@ cp -R . ~/.gazebo/models
 If you completed the preceding tasks successfully, you should be able to run this ROS 2 launch command and see the Gazebo Classic simulator and RViz simulator open with the following display:
 
 ```sh
-ros2 launch parc_robot_bringup task_1_launch.py
+ros2 launch parc_robot_bringup task1_launch.py
 ```
 ![Gazebo Simulator window](assets/gazebo.png)
 Gazebo Classic Simulator window

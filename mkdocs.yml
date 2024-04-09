@@ -106,7 +106,7 @@ nav:
   - Rules and Regulations: rules-and-regulations.md
   - Resources and Support:
     - Virtual Meeting Recordings: resources-and-support/additional-resources.md
-    - Additional Transform Resources: resources-and-support/additional-transform-resources.md
+    # - Additional Transform Resources: resources-and-support/additional-transform-resources.md
 
 plugins:
   - i18n:
