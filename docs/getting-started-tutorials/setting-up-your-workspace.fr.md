@@ -40,15 +40,7 @@ rosdep update
 rosdep install --from-paths src --ignore-src --rosdistro humble -r -y
 ```
 
-### Étape 4: Compiler les packages
-
-L'étape suivante consiste à compiler les packages installés en utilisant `colcon build`:
-```sh
-cd ~/ros2_ws
-colcon build
-```
-
-### Étape 5: Configurer l'environnement ROS 2
+### Étape 4: Configurer l'environnement ROS 2
 
 La commande suivante doit être exécutée dans chaque nouveau terminal que vous ouvrez pour accéder aux commandes ROS 2:
 
@@ -81,6 +73,14 @@ source ~/.bashrc
     ```sh
     source ~/ros2_ws/install/setup.bash
     ```
+
+### Étape 5: Compiler les packages
+
+L'étape suivante consiste à compiler les packages installés en utilisant `colcon build`:
+```sh
+cd ~/ros2_ws
+colcon build
+```
 
 ### Étape 6: Installation et configuration de Gazebo Classic
 
