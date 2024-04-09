@@ -45,9 +45,11 @@ ros2 launch parc_robot_bringup task1_launch.py route:=route2
 ros2 launch parc_robot_bringup task1_launch.py route:=route3
 ```
 
-* Nous vous recommandons de jouer avec au moins ces trois itinéraires pour vous assurer que votre solution est robuste aux différents emplacements de départ.
+Nous vous recommandons de jouer avec au moins ces trois itinéraires pour vous assurer que votre solution est robuste aux différents emplacements de départ.
 
-* Pour obtenir l'emplacement de l'objectif GPS pour cette tâche, quelle que soit l'option d'itinéraire, vous utilisez les [paramètres](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Parameters/Understanding-ROS2-Parameters.html){target=_blank} ROS dans un nœud.
+### Obtenir la position de l'objectif GPS
+
+Pour obtenir l'emplacement de l'objectif GPS pour cette tâche, quelle que soit l'option d'itinéraire, vous utilisez les [paramètres](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Parameters/Understanding-ROS2-Parameters.html){target=_blank} ROS dans un nœud.
    Voici un exemple de la façon d'obtenir l'emplacement de l'objectif en tant que paramètre ROS:
 
 ```python
@@ -93,97 +95,25 @@ if __name__ == "__main__":
     main()
 ```
 Les valeurs des paramètres d'emplacement de l'objectif sont obtenues à partir des fichiers `.yaml` fournis, qui varient en fonction de l'itinéraire choisi, et ces fichiers sont transmis comme arguments lorsque le nœud est exécuté comme suit:
-
-```sh
+`
 ros2 run <nom_du_paquet> <nom_de_l'exécutable> --ros-args --params-file <nom_de_fichier>
-```
+`
 
 Par exemple, en choisissant `route1` pour la tâche de navigation, l'exemple de commande suivant sera exécuté:
 
 ```sh
 
-ros2 run parc_solutions task1_solution.py --ros-args --params-file ~/ros2_ws/src/parc_robot_bringup/config/route1_world_coordinates.yaml
+ros2 run <votre-nom-de-paquet> task1_solution.py --ros-args --params-file ~/ros2_ws/src/parc_robot_bringup/config/route1_world_coordinates.yaml
 ```
 
 !!! note
     Un [chemin de fichier absolu](https://www.redhat.com/sysadmin/linux-path-absolute-relative){target=_blank} a été utilisé pour localiser le fichier de paramètres. Un chemin de fichier relatif peut également être utilisé si la commande est appelée dans le répertoire de `config` où se trouvent les fichiers de coordonnées. 
     Cependant, il est recommandé de spécifier le chemin absolu du fichier pour éviter les erreurs de chemin.
 
-Le contenu du fichier `route1_world_coordinates.yaml` est le suivant:
+De même, les coordonnées GPS des piquets sur les terres agricoles peuvent être obtenues comme paramètre si vous en avez besoin pour la localisation. 
+Pour obtenir les coordonnées du piquet A, par exemple, les paramètres `goal_latitude` et `goal_longitude` de l'extrait de code précédent sont remplacés respectivement par `peg_a_latitude` et `peg_a_longitude`.
 
-```
-/**:
-  ros__parameters:
-
-    origin_latitude: 49.90000010022057
-    origin_longitude: 8.900000304717647
-    
-    goal_latitude: 49.89995550730833
-    goal_longitude: 8.900078504470644
-    
-    peg_a_latitude: 49.90003227516326
-    peg_a_longitude: 8.899956219604325
-
-    peg_b_latitude: 49.90000470401652
-    peg_b_longitude: 8.89994553616028
-  
-    peg_c_latitude: 49.89998381891777
-    peg_c_longitude: 8.899978564376983
-
-    peg_d_latitude: 49.90001471436836
-    peg_d_longitude: 8.899990252377338
-  
-    peg_e_latitude: 49.900026830087526
-    peg_e_longitude: 8.900024049357661
-
-    peg_f_latitude: 49.89999732019855
-    peg_f_longitude: 8.900012822919749
-
-```
-De même, les coordonnées GPS des piquets sur les terres agricoles peuvent être obtenues comme paramètre si vous en avez besoin pour la localisation. Voici un exemple de comment obtenir les coordonnées GPS du **piquet A**:
-
-```python
-#!/usr/bin/env python3
-
-import rclpy
-from rclpy.node import Node
-
-
-class PegALocation(Node):
-    def __init__(self):
-        super().__init__("peg_a_coordinates")
-
-        # Déclarer les paramètres de latitude et de longitude du piquet A
-        self.declare_parameter("peg_a_latitude", rclpy.Parameter.Type.DOUBLE)
-        self.declare_parameter("peg_a_longitude", rclpy.Parameter.Type.DOUBLE)
-
-        # Obtenir l'emplacement de la piquet A à partir du fichier yaml de coordonnées mondiales
-        peg_a_lat = self.get_parameter("peg_a_latitude")
-        peg_a_long = self.get_parameter("peg_a_longitude")
-
-        # Imprimer l'emplacement de la piquet A
-        self.get_logger().info(
-            "Peg A location: %f %f"
-            % (
-                peg_a_lat.value,
-                peg_a_long.value,
-            )
-        )
-
-
-def main(args=None):
-    rclpy.init(args=args)
-    
-    peg_a_coordinates = PegALocation()
-    rclpy.spin(peg_a_coordinates)
-
-    peg_a_coordinates.destroy_node()
-    rclpy.shutdown()
-
-
-if __name__ == "__main__":
-    main()
-```
+A titre de référence, en considérant la `route1`, les coordonnées mondiales correspondantes sont disponibles dans le fichier [route1_world_coordinates.yaml](https://github.com/PARC-Robotics/PARC2024-Engineers-League/blob/main/parc_robot_bringup/config/route1_world_coordinates.yaml){target=_blank}.
 
 !!! warning
     Veuillez **NE PAS** utiliser les coordonnées cartésiennes de l'emplacement du but et des piquets fournis par Gazebo ou le fichier mondial de quelque manière que ce soit. Vous serez pénalisé si vous le faites.

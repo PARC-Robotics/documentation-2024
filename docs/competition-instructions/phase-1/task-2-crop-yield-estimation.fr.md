@@ -140,13 +140,13 @@ tomates après l'arrêt du robot, que vous pouvez surveiller via la rubrique ``p
     ros2 launch parc_robot_bringup task2_launch.py
     ```
 
-    Or 
+    Ou 
 
     ```sh
     ros2 launch parc_robot_bringup task2_launch.py world:=world2
     ```
 
-    Or
+    Ou
 
     ```sh
     ros2 launch parc_robot_bringup task2_launch.py world:=world3
@@ -177,7 +177,5 @@ Votre solution sera évaluée sur la base des critères suivants:
 
 | S/N | Critère/Métrique | Descriptif|
 | ----------- | ----------- | ------- |
-| 1 | **Précision** | Accuracy is based on how many red tomato fruits are correctly counted, within ±2 of the actual number of tomato fruits. Incorrect detections or missed red tomato fruits reduce accuracy. Your solution will be tested against three newly created tomato field worlds. |
+| 1 | **Précision** | La précision est basée sur le nombre de tomates rouges correctement comptées, à ± 2 près du nombre réel de tomates. Des détections incorrectes ou des tomates rouges manquées réduisent la précision. Votre solution sera testée sur trois mondes de champs de tomates nouvellement créés. |
 | 2 | **Robustesse** | Nous mesurons la robustesse de votre solution en évaluant sa précision dans trois nouveaux mondes et à différentes vitesses. La précision est pondérée et moyennée sur différentes vitesses et dans les trois mondes pour déterminer la robustesse globale de votre solution. |
-
-

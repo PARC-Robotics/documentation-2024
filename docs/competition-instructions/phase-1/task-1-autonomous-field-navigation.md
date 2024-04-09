@@ -45,9 +45,11 @@ ros2 launch parc_robot_bringup task1_launch.py route:=route2
 ros2 launch parc_robot_bringup task1_launch.py route:=route3
 ```
 
-* We recommend you play around with at least these three routes to ensure your solution is robust to different start locations.
+We recommend you play around with at least these three routes to ensure your solution is robust to different start locations.
 
-* To obtain the GPS goal location for this task, regardless of the route option, you use ROS [parameters](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Parameters/Understanding-ROS2-Parameters.html){target=_blank} in a node. 
+### Getting the GPS goal location
+
+To obtain the GPS goal location for this task, regardless of the route option, you use ROS [parameters](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Parameters/Understanding-ROS2-Parameters.html){target=_blank} in a node. 
     Here is an example of how to obtain the goal location as a ROS parameter:
 
 ```python
@@ -94,98 +96,23 @@ if __name__ == "__main__":
 ```
 
 The goal location parameter values are obtained from provided `.yaml` files, which vary depending on the route chosen, and these files are passed as arguments when the node is run as follows:
-
-```sh
-ros2 run <package_name> <executable_name> --ros-args --params-file <file_name>
-```
+`ros2 run <package_name> <executable_name> --ros-args --params-file <file_name>`
 
 For instance, choosing `route1` for the navigation task, the following sample command will be executed:
 
 ```sh
 
-ros2 run parc_solutions task1_solution.py --ros-args --params-file ~/ros2_ws/src/parc_robot_bringup/config/route1_world_coordinates.yaml
+ros2 run <your-package-name> task1_solution.py --ros-args --params-file ~/ros2_ws/src/parc_robot_bringup/config/route1_world_coordinates.yaml
 ```
 
 !!! note
     An [absolute file path](https://www.redhat.com/sysadmin/linux-path-absolute-relative){target=_blank} was used to locate the parameter file. A relative file path can also be used
     if the command is called inside the `config` directory where the coordinate files are located. However, specifying the absolute file path is recommended to avoid path errors.
 
-The `route1_world_coordinates.yaml` file contents are as follows:
+Similarly, the GPS coordinates of the pegs on the farmland can be obtained as a parameter if you need it for localization. To obtain the coordinates for peg A, for instance, the `goal_latitude` and
+`goal_longitude` parameters from the previous code snippet are replaced with `peg_a_latitude` and `peg_a_longitude` respectively.
 
-```
-/**:
-  ros__parameters:
-
-    origin_latitude: 49.90000010022057
-    origin_longitude: 8.900000304717647
-    
-    goal_latitude: 49.89995550730833
-    goal_longitude: 8.900078504470644
-    
-    peg_a_latitude: 49.90003227516326
-    peg_a_longitude: 8.899956219604325
-
-    peg_b_latitude: 49.90000470401652
-    peg_b_longitude: 8.89994553616028
-  
-    peg_c_latitude: 49.89998381891777
-    peg_c_longitude: 8.899978564376983
-
-    peg_d_latitude: 49.90001471436836
-    peg_d_longitude: 8.899990252377338
-  
-    peg_e_latitude: 49.900026830087526
-    peg_e_longitude: 8.900024049357661
-
-    peg_f_latitude: 49.89999732019855
-    peg_f_longitude: 8.900012822919749
-
-```
-
-Similarly, the GPS coordinates of the pegs on the farmland can be obtained as a parameter if you need it for localization. Here is an example of how to obtain the GPS coordinate of **peg A**:
-
-```python
-#!/usr/bin/env python3
-
-import rclpy
-from rclpy.node import Node
-
-
-class PegALocation(Node):
-    def __init__(self):
-        super().__init__("peg_a_coordinates")
-
-        # Declare peg A latitude and longitude parameters
-        self.declare_parameter("peg_a_latitude", rclpy.Parameter.Type.DOUBLE)
-        self.declare_parameter("peg_a_longitude", rclpy.Parameter.Type.DOUBLE)
-
-        # Get peg A location from world coordinates yaml file
-        peg_a_lat = self.get_parameter("peg_a_latitude")
-        peg_a_long = self.get_parameter("peg_a_longitude")
-
-        # Print peg A location
-        self.get_logger().info(
-            "Peg A location: %f %f"
-            % (
-                peg_a_lat.value,
-                peg_a_long.value,
-            )
-        )
-
-
-def main(args=None):
-    rclpy.init(args=args)
-    
-    peg_a_coordinates = PegALocation()
-    rclpy.spin(peg_a_coordinates)
-
-    peg_a_coordinates.destroy_node()
-    rclpy.shutdown()
-
-
-if __name__ == "__main__":
-    main()
-```
+For reference purposes, considering `route1`, the corresponding world coordinates are available in the file [route1_world_coordinates.yaml](https://github.com/PARC-Robotics/PARC2024-Engineers-League/blob/main/parc_robot_bringup/config/route1_world_coordinates.yaml){target=_blank}.
 
 !!! warning
     Please **DO NOT** use the cartesian coordinates of the goal location and pegs provided by Gazebo or the world file in any way. You will be penalized if you do.
