@@ -86,14 +86,15 @@ colcon build
 
 Gazebo Classic, version 11, is the robot simulator used in the competition and can be installed [here](https://classic.gazebosim.org/tutorials?tut=install_ubuntu&cat=install){target=_blank}.
 
-The tomato field is made up of custom models, the tomato plants for instance, that are not available in Gazebo. These models will need to be copied to the appropriate directory to completely view the tomato field.
-
-Navigate to the models folder in the `parc_robot_bringup` package, then copy its directory contents to the Gazebo `models` directory on your PC:
+The tomato field is made up of custom models, the tomato plants for instance, that are not available in Gazebo. These models are present in the `models` folder in the `parc_robot_bringup` package.
+To completely view the tomato field in Gazebo, the path to the `models` folder is made to Gazebo by executing the following commands one after the other:
 
 ```sh
-cd ~/ros2_ws/src/parc_robot_bringup/models
-cp -R . ~/.gazebo/models
+echo "export GAZEBO_MODEL_PATH=:$HOME/ros2_ws/src/parc_robot_bringup/models" >> ~/.bashrc
+source ~/.bashrc
 ```
+
+Ensure that the workspace directory is correctly typed out assuming that a different workspace from `ros2_ws` is used.
 
 !!! Note 
     The 3D visualizer for ROS, [`RViz`](https://docs.ros.org/en/humble/Tutorials/Intermediate/RViz/RViz-User-Guide/RViz-User-Guide.html){target=_blank}, is automatically installed when ROS 2 Humble was installed on your PC in the [setting up your PC](../getting-started-tutorials/setting-up-your-pc.md) tutorial.
