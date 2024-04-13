@@ -172,11 +172,28 @@ It's important to note that real-time publication of counted tomato fruits is no
 
 ## Task Evaluation
 
-Your solution will be evaluated based on the following criteria:
-
-| S/N | Criteria/Metric | Description |
-| ----------- | ----------- | ------- |
-| 1 | **Accuracy** | Accuracy is based on how many red tomato fruits are correctly counted, within ±2 of the actual number of tomato fruits. Incorrect detections or missed red tomato fruits reduce accuracy. Your solution will be tested against three newly created tomato field worlds. |
-| 2 | **Robustness** | We measure the robustness of your solution by evaluating its accuracy across three new worlds and at different speeds. The accuracy is given a weight and averaged across different speeds and all three worlds to determine the overall robustness of your solution. |
+Your solution will be tested against three new tomato field worlds and at varied speeds. A total score for this task will be calculated using the formula below:
 
 
+```python
+total_score = W1*accuracy(speed_1) + ... + Wn*accuracy(speed_n)
+
+```
+where, 
+
+***speed_n*** - is how fast the robot is moving in `m/s`
+
+***accuracy*** - is calculated as the average percentage error of the 3 worlds at a particular speed
+     
+***Wn*** - is the weight on the accuracy term which varies with speed
+
+Considering `world1` for instance,
+
+```
+Actual number of red tomatoes = 60
+Predicted number of red tomatoes = 54
+Absolute error = |60 - 54| = 6
+Percentage error = Absolute error/(Actual number of red tomatoes) * 100
+```
+
+The average percentage error is the percentage error across the 3 worlds.

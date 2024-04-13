@@ -172,10 +172,27 @@ tomates après l'arrêt du robot, que vous pouvez surveiller via la rubrique ``p
 
 
 ## Évaluation des Tâches
+Votre solution sera testée sur trois nouveaux mondes de champs de tomates et à des vitesses variées. Un score total pour cette tâche sera calculé à l'aide de la formule ci-dessous:
 
-Votre solution sera évaluée sur la base des critères suivants:
+```python
+total_score = W1*accuracy(speed_1) + ... + Wn*accuracy(speed_n)
 
-| S/N | Critère/Métrique | Descriptif|
-| ----------- | ----------- | ------- |
-| 1 | **Précision** | La précision est basée sur le nombre de tomates rouges correctement comptées, à ± 2 près du nombre réel de tomates. Des détections incorrectes ou des tomates rouges manquées réduisent la précision. Votre solution sera testée sur trois mondes de champs de tomates nouvellement créés. |
-| 2 | **Robustesse** | Nous mesurons la robustesse de votre solution en évaluant sa précision dans trois nouveaux mondes et à différentes vitesses. La précision est pondérée et moyennée sur différentes vitesses et dans les trois mondes pour déterminer la robustesse globale de votre solution. |
+```
+où,
+
+***speed_n*** - c'est la vitesse à laquelle le robot se déplace `m/s`
+
+***accuracy*** - est calculé comme le pourcentage d'erreur moyen des 3 mondes à une vitesse particulière
+     
+***Wn*** - est le poids sur le terme de précision qui varie avec la vitesse
+
+En considérant `world1` par exemple,
+
+```
+Nombre réel de tomates rouges = 60
+Prédit nombre de tomates rouges = 54
+Erreur absolue = |60 - 54| = 6
+Pourcentage d'erreur = Erreur absolue/(Nombre réel de tomates rouges) * 100
+```
+
+Le pourcentage d’erreur moyen est le pourcentage d’erreur dans les 3 mondes.
