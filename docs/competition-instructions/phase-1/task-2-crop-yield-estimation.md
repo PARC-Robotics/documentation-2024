@@ -193,7 +193,8 @@ Considering `world1` for instance,
 Actual number of red tomatoes = 60
 Predicted number of red tomatoes = 54
 Absolute error = |60 - 54| = 6
-Percentage error = Absolute error/(Actual number of red tomatoes) * 100
+Percentage error = (Absolute error / Actual number of red tomatoes) * 100
+Percentage error = 10%
 ```
 
 The average percentage error is the percentage error across the 3 worlds.

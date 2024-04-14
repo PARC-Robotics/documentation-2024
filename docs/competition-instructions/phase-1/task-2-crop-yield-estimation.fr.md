@@ -192,7 +192,8 @@ En considérant `world1` par exemple,
 Nombre réel de tomates rouges = 60
 Prédit nombre de tomates rouges = 54
 Erreur absolue = |60 - 54| = 6
-Pourcentage d'erreur = Erreur absolue/(Nombre réel de tomates rouges) * 100
+Pourcentage d'erreur = (Erreur absolue / Nombre réel de tomates rouges) * 100
+Pourcentage d'erreur = 10%
 ```
 
 Le pourcentage d’erreur moyen est le pourcentage d’erreur dans les 3 mondes.
