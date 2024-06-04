@@ -1009,7 +1009,7 @@ La structure des fichiers du package <code>test_publisher</code> est la suivante
 <p>Nous devons mettre à jour le fichier <code>setup.py</code> dans le package <abbr title="Robot Operating System">ROS</abbr> 2 pour inclure notre nouveau programme. Ajoutez la ligne suivante dans la section <code>console_scripts</code> du fichier <code>setup.py</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">entry_points</span><span class="o">=</span><span class="p">{</span>
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>        <span class="s1">&#39;console_scripts&#39;</span><span class="p">:</span> <span class="p">[</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>                <span class="s1">&#39;move_robot = test_publisher.robot_publisher:main&#39;</span><span class="p">,</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>                <span class="s1">&#39;robot_publisher = test_publisher.robot_publisher:main&#39;</span><span class="p">,</span>
 <a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>        <span class="p">],</span>
 <a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="p">},</span>
 </code></pre></div>
@@ -1024,7 +1024,7 @@ La structure des fichiers du package <code>test_publisher</code> est la suivante
 </code></pre></div>
 Et exécutez les commandes suivantes dans un autre terminal pour exécuter ce nouveau programme,</p>
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nb">source</span><span class="w"> </span>~/ros2_ws/install/setup.bash
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>ros2<span class="w"> </span>run<span class="w"> </span>test_publisher<span class="w"> </span>robot_publisher.py
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>ros2<span class="w"> </span>run<span class="w"> </span>test_publisher<span class="w"> </span>robot_publisher
 </code></pre></div>
 Si vous avez tout bien configuré, vous devriez voir le robot se déplacer dans le Gazebo comme ci-dessous,</p>
 <p><img alt="publisher demo" src="../assets/getting_started_demo.gif" /></p>

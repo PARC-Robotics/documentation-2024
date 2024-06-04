@@ -1023,7 +1023,7 @@
 Les valeurs des paramètres d&rsquo;emplacement de l&rsquo;objectif sont obtenues à partir des fichiers <code>.yaml</code> fournis, qui varient en fonction de l&rsquo;itinéraire choisi, et ces fichiers sont transmis comme arguments lorsque le nœud est exécuté comme suit:
 <code>ros2 run &lt;nom_du_paquet&gt; &lt;nom_de_l'exécutable&gt; --ros-args --params-file &lt;nom_de_fichier&gt;</code></p>
 <p>Par exemple, en choisissant <code>route1</code> pour la tâche de navigation, l&rsquo;exemple de commande suivant sera exécuté:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>&lt;votre-nom-de-paquet&gt;<span class="w"> </span>task1_solution.py<span class="w"> </span>--ros-args<span class="w"> </span>--params-file<span class="w"> </span>~/ros2_ws/src/parc_robot_bringup/config/route1_world_coordinates.yaml
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>&lt;votre-nom-de-paquet&gt;<span class="w"> </span>task1_solution<span class="w"> </span>--ros-args<span class="w"> </span>--params-file<span class="w"> </span>~/ros2_ws/src/parc_robot_bringup/config/route1_world_coordinates.yaml
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1108,7 +1108,7 @@ Pour obtenir les coordonnées du piquet A, par exemple, les paramètres <code>go
 <p>Veuillez attendre que les modèles du monde et du robot aient fini d&rsquo;apparaître. Ce processus peut prendre plus de temps que d&rsquo;habitude, surtout lors de la première exécution du programme.</p>
 </div>
 <p>Dans un autre terminal:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>&lt;le-nom-de-votre-colis&gt;<span class="w"> </span>task1_solution.py<span class="w"> </span>--ros-args<span class="w"> </span>--params-file<span class="w"> </span>&lt;chemin-absolu-vers-la-route-coordonnées-mondiales-fichier-yaml&gt;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>&lt;le-nom-de-votre-colis&gt;<span class="w"> </span>task1_solution<span class="w"> </span>--ros-args<span class="w"> </span>--params-file<span class="w"> </span>&lt;chemin-absolu-vers-la-route-coordonnées-mondiales-fichier-yaml&gt;
 </code></pre></div>
 <h2 id="regles-de-tache">Règles de Tâche<a class="headerlink" href="#regles-de-tache" title="Permanent link">&para;</a></h2>
 <ul>

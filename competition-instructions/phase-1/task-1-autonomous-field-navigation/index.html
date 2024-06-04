@@ -1023,7 +1023,7 @@ Agricultural robots must be able to navigate through crops and farmland, which i
 <p>The goal location parameter values are obtained from provided <code>.yaml</code> files, which vary depending on the route chosen, and these files are passed as arguments when the node is run as follows:
 <code>ros2 run &lt;package_name&gt; &lt;executable_name&gt; --ros-args --params-file &lt;file_name&gt;</code></p>
 <p>For instance, choosing <code>route1</code> for the navigation task, the following sample command will be executed:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>&lt;your-package-name&gt;<span class="w"> </span>task1_solution.py<span class="w"> </span>--ros-args<span class="w"> </span>--params-file<span class="w"> </span>~/ros2_ws/src/parc_robot_bringup/config/route1_world_coordinates.yaml
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>&lt;your-package-name&gt;<span class="w"> </span>task1_solution<span class="w"> </span>--ros-args<span class="w"> </span>--params-file<span class="w"> </span>~/ros2_ws/src/parc_robot_bringup/config/route1_world_coordinates.yaml
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1108,7 +1108,7 @@ if the command is called inside the <code>config</code> directory where the coor
 <p>Please wait until both the world and robot models have finished spawning. This process may take longer than usual, especially when running the program for the first time.</p>
 </div>
 <p>In another terminal:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>&lt;your-package-name&gt;<span class="w"> </span>task1_solution.py<span class="w"> </span>--ros-args<span class="w"> </span>--params-file<span class="w"> </span>&lt;absolute-path-to-route-world-coordinates-yaml-file&gt;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>ros2<span class="w"> </span>run<span class="w"> </span>&lt;your-package-name&gt;<span class="w"> </span>task1_solution<span class="w"> </span>--ros-args<span class="w"> </span>--params-file<span class="w"> </span>&lt;absolute-path-to-route-world-coordinates-yaml-file&gt;
 </code></pre></div>
 <h2 id="task-rules">Task Rules<a class="headerlink" href="#task-rules" title="Permanent link">&para;</a></h2>
 <ul>
